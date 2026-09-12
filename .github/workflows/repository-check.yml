@@ -1,0 +1,41 @@
+name: Repository check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      # Every tool in tools/ imports only the standard library, which is why
+      # there is no requirements file to install. The check below enforces that,
+      # so the claim stays true rather than drifting the first time someone
+      # reaches for a convenient package.
+      - name: Confirm the tooling is still standard library only
+        run: python tools/check_stdlib_only.py
+
+      # The redaction review, made executable. PUBLICATION_CHECKLIST.md refers to
+      # this gate: writing a review is worth little if nobody re-runs it, and this
+      # repository publishes architecture from an employer system.
+      - name: Publication gate
+        run: python tools/check_public.py
+
+      # Internal references: markdown links, image paths, deck diagram stems,
+      # drawio shapes, SVG viewBoxes, and the public copies against their
+      # canonical sources.
+      - name: Internal reference gate
+        run: python tools/check_links.py
+
+      - name: Lint
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+          ruff check tools/

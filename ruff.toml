@@ -1,0 +1,26 @@
+# Lint configuration for tools/.
+#
+# The rule set is deliberately narrow. A default ruff run over these generators
+# reports 211 findings, and 139 of them are ISC004, which objects to the explicit
+# string concatenation that building SVG and drawio XML by hand is made of.
+# Adopting the full default set would mean restyling fourteen working files to
+# satisfy a linter added afterwards, which is churn rather than quality.
+#
+# What is selected is the set that catches mistakes rather than preferences:
+# pyflakes for dead code and real errors, and the E9 syntax group.
+
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = ["F", "E9"]
+
+# F841, a local assigned and never read.
+#
+# The generators use it deliberately. `note = d.box(...)` and `t1 = pill(...)`
+# call a function for its side effect - the shape is added to the diagram - and
+# keep the name for symmetry with the neighbouring lines that do use their
+# result. Removing the names changes nothing; removing the calls would silently
+# delete shapes from published diagrams. Neither is worth the risk, so the rule
+# is off and the reason is written down instead of rediscovered.
+ignore = ["F841"]

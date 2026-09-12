@@ -4,8 +4,8 @@ failure/recovery, document state machine, executive view."""
 from __future__ import annotations
 
 import design_tokens as T
-from svg_kit import (Box, Canvas, card, edge, lane_around, legend, line_height,
-                     matrix, note, pill, state, step, store, text_el, wrap,
+from svg_kit import (Box, Canvas, card, edge, lane_around, line_height,
+                     matrix, note, pill, state, store, text_el, wrap,
                      write)
 
 OUT = "assets/architecture"

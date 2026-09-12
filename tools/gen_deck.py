@@ -255,8 +255,14 @@ def deck_html(*, for_print: bool, start: int = 1) -> str:
         deep = (f' &nbsp;|&nbsp; full resolution: assets/png/{stem}.png'
                 if stem and stem != "ai-engineering-architecture-4k"
                 else "")
-        slides.append(f"""<section class="slide{' wide' if not img else ''}">
-  {"<p class=\"k\">" + kicker + "</p>" if kicker else ""}
+        # Built outside the f-string below. An escaped quote inside an f-string
+        # expression is Python 3.12 syntax, and nothing in this repository says
+        # it needs 3.12, so on 3.11 the whole module failed to parse before a
+        # single generator could run.
+        kicker_html = f'<p class="k">{kicker}</p>' if kicker else ""
+        wide = " wide" if not img else ""
+        slides.append(f"""<section class="slide{wide}">
+  {kicker_html}
   <h2>{title}</h2>
   <div class="body">{img}<ul>{lis}</ul></div>
   <p class="foot">Mohd Zamin Quadri &middot; AI Engineer &middot; BP-ITCS

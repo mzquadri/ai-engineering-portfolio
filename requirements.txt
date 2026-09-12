@@ -1,0 +1,17 @@
+# Everything under tools/ runs on a bare Python install, with one exception.
+#
+# python-pptx is needed only by tools/gen_deck.py, which writes
+# presentation/ai-engineering-portfolio.pptx. It is imported inside the function
+# that uses it, so every other generator, and both publication gates, run
+# without installing anything:
+#
+#     python tools/check_public.py        no install needed
+#     python tools/check_links.py         no install needed
+#     python tools/gen_site.py            no install needed
+#     python tools/gen_diagrams.py        no install needed
+#     python tools/gen_deck.py            needs the line below
+#
+# tools/check_stdlib_only.py enforces that split, so this file cannot quietly
+# grow a second entry.
+
+python-pptx>=0.6.23

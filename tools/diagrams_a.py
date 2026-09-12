@@ -7,7 +7,7 @@ private/audit/07-evidence-matrix.md for the claim-by-claim sourcing.
 from __future__ import annotations
 
 import design_tokens as T
-from svg_kit import (Box, Canvas, card, edge, lane, lane_around, legend, note,
+from svg_kit import (Box, Canvas, card, edge, lane, lane_around, note,
                      pill, step, store, text_el, write)
 
 OUT = "assets/architecture"

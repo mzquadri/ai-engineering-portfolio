@@ -19,8 +19,8 @@ colleague -- it is classed Integration / shared, not mine.
 from __future__ import annotations
 
 import design_tokens as T
-from svg_kit import (Box, Canvas, card, edge, lane_around, line_height, matrix,
-                     note, pill, store, text_el, wrap, write)
+from svg_kit import (Box, Canvas, card, edge, lane_around, matrix,
+                     note, pill, store, text_el, write)
 
 OUT = "assets/architecture"
 

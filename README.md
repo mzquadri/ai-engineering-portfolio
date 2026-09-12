@@ -150,6 +150,25 @@ Mermaid.
 answering one question. Individual slides as PNG in
 [`presentation/slides/`](presentation/slides/).
 
+## Rebuilding any of it
+
+Every generator under `tools/` runs on a bare Python install, with one
+exception: `tools/gen_deck.py` writes the PowerPoint file and needs
+`python-pptx`, which is the only line in `requirements.txt`. It is imported
+inside the function that uses it, so the two publication gates and every other
+generator run without installing anything.
+
+```bash
+python tools/check_public.py        # the redaction review, re-runnable
+python tools/check_links.py         # every internal reference resolves
+python tools/check_stdlib_only.py   # no undeclared dependency crept in
+
+pip install -r requirements.txt     # only needed for the line below
+python tools/gen_deck.py
+```
+
+All three gates run on every push.
+
 ## Interactive architecture
 
 ```bash
