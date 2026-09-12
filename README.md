@@ -1,6 +1,9 @@
 # AI Engineering Systems — architecture case studies
 
-**Mohd Zamin Quadri · AI Engineer**
+**Mohd Zamin Quadri · AI Engineer · Munich, Germany**
+
+**[mzquadri.de](https://mzquadri.de)** — the full portfolio: research, selected
+work, experience and CV. This repository is the architecture half of it.
 
 > **Personal engineering portfolio by Mohd Zamin Quadri.** Selected architecture
 > case studies based on systems I **contributed to** while working at
@@ -170,6 +173,10 @@ python tools/gen_deck.py
 All three gates run on every push.
 
 ## Interactive architecture
+
+Published at
+**[mzquadri.github.io/ai-engineering-portfolio](https://mzquadri.github.io/ai-engineering-portfolio/)**,
+or open the file directly:
 
 ```bash
 start index.html      # Windows
