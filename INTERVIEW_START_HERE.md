@@ -16,7 +16,7 @@ Open before the call:
 | Time | Open | Say |
 |---|---|---|
 | **0–30s** | Slide 1, or the hero image | The 60-second intro from `interview/60-second-introduction.md`. Do not start with the architecture. |
-| **30s–2min** | `13-interview-system-overview.svg` (slide 10 uses it) | The seven stages, left to right. Then point at the authorship strip and say which four services are mine. Get that out early. |
+| **30s–2min** | `13-interview-system-overview.svg` (slide 12 uses it) | The seven stages, left to right. Then point at the authorship strip and say which four services are mine. Get that out early. |
 | **2–5min** | `02-legal-knowledge-database.svg` (slide 3) | Five services, three topics, four stores. Land the two boundaries: `law.structured` is PostgreSQL only, `law.embedded` is completion. |
 | **5–8min** | `17-verification-essence.svg` (slide 5) | The six mechanisms. This is the part that differentiates the work — spend the most time here. |
 | **8–10min** | `12-my-contributions.svg` (slide 9) | The ledger. Name what is not mine before they ask. |

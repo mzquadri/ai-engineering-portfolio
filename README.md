@@ -109,8 +109,7 @@ used; the source documents the first half of that, not the second.
 |---|---|
 | **Primary implementation** | Ingestion Preprocessor (466/498 commits) · Ingestion Loader (77/94) · Legal KB Health Service (123/148) · Legal KB Dashboard (144/167) |
 | **Significant contribution** | Entity Producer — EU/CELLAR ingestion, broker-confirmed publication · Document Extractor — dual LLM+regex extraction · Indexing Service — I created it · shared `ai-utils` library · Medical-imaging prototype — Grad-CAM++ analyser, DenseNetV2 integration, calibrated per-finding thresholds |
-| **Integration / shared** | Glaux UI, entity-handler, shared utils — bounded changes only |
-| **Integration / shared** | The questionnaire ingestion path — a colleague's feature inside a service I implemented — plus Glaux UI, entity-handler and shared utils |
+| **Integration / shared** | The questionnaire ingestion path — a colleague-authored feature integrated inside a service I implemented · Glaux UI, entity-handler and shared utils — bounded changes only in each |
 | **Existing platform** | The Java entity platform, the AI Compliance UI and backend, the RAG service (0 of 56 commits), the legal chatbot, and every third-party store |
 
 Commit shares are `git shortlog -sne` on 2026-09-12. A commit count is evidence
@@ -147,15 +146,15 @@ Mermaid.
 ## Interview deck
 
 [**ai-engineering-portfolio.pdf**](presentation/ai-engineering-portfolio.pdf)
-· [PPTX](presentation/ai-engineering-portfolio.pptx) — ten slides, each
+· [PPTX](presentation/ai-engineering-portfolio.pptx) — twelve slides, each
 answering one question. Individual slides as PNG in
 [`presentation/slides/`](presentation/slides/).
 
 ## Interactive architecture
 
 ```bash
-start portfolio/index.html      # Windows
-open  portfolio/index.html      # macOS
+start index.html      # Windows
+open  index.html      # macOS
 ```
 
 One self-contained file with every diagram inlined as SVG. No build step, no
@@ -164,7 +163,7 @@ static host.
 
 Two controls worth using: **Highlight my work** dims everything that is not
 primary authorship across every diagram at once, and **Interview walkthrough**
-runs a nine-step guided sequence.
+runs an eleven-step guided sequence.
 
 Regenerate everything with `python tools/gen_diagrams.py && python tools/gen_site.py`
 — see [`tools/`](tools/). A diagram whose text would not fit raises rather than

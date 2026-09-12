@@ -1,4 +1,5 @@
-"""Build portfolio/index.html -- a single static file, no build step, no CDN.
+"""Build index.html at the repository root -- one static file, no build step,
+no CDN.
 
 The SVGs are inlined rather than referenced, for three reasons: it works from
 the filesystem with no server, the diagrams inherit the page theme, and every
