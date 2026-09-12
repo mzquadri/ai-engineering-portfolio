@@ -1,0 +1,11 @@
+%% Query path. Authoritative version: assets/architecture/07-rag-query-flow.svg
+flowchart LR
+  Q["query"] --> E["embed with BGE-M3<br/>same model as the corpus"]
+  E --> R["hybrid retrieval<br/>dense + sparse prefetch"]
+  R --> QD[("Qdrant<br/>RRF fusion, server-side")]
+  QD --> C["cited chunks<br/>law + section_number in the payload"]
+  C --> CB["Legal Chatbot<br/>existing component"]
+  NE[("Neo4j<br/>what each provision cites")] -.-> CB
+  CB --> LLM["self-hosted LLM<br/>OpenAI-compatible endpoint"]
+  LLM --> ANS["grounded answer with provisions"]
+  ANS -.->|designed, not implemented| CV["validate each cited section<br/>against the corpus"]

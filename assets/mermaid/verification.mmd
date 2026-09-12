@@ -1,0 +1,16 @@
+%% How a verdict is produced. Authoritative version:
+%% assets/architecture/06-verification-and-reconciliation.svg
+flowchart TD
+  CAP[("captured source<br/>digest-proven")] --> ORA["independent inventory<br/>different XML stack, imports no parser code"]
+  ORA --> PF{"pre-flight:<br/>structure recognised?"}
+  PF -->|no| STOP["BLOCKED — no ingest"]
+  PF -->|yes| ING["ingest, then store"]
+  ING --> BASE{"does every certified law<br/>still reproduce?"}
+  BASE -->|no| NOV["no verdict for ANY law"]
+  BASE -->|yes| GATES["run every applicable gate<br/>DE 14 · EU 12 · 7 badge-required"]
+  GATES --> OK["VERIFIED_CURRENT"]
+  GATES --> CH["SOURCE_CHANGED_REINGEST_REQUIRED"]
+  GATES --> FAIL["INTEGRITY_FAILED"]
+  OK --> VC[("verification_checks<br/>one row per gate per generation")]
+  CH --> VC
+  FAIL --> VC

@@ -1,0 +1,12 @@
+%% Document intelligence. Authoritative version:
+%% assets/architecture/10-insurance-document-ai.svg
+flowchart LR
+  D[/"document in MinIO"/] -->|ibp.events.inbound| X["Document Extractor"]
+  X --> DL["Docling Serve<br/>bytes → Markdown"]
+  DL --> EA["extraction agent<br/>discovery · guided · re-extract"]
+  T[("templates in entity-reader")] -->|ibp.events.templates| EA
+  EA -->|ibp.events.document.extracted| I["Indexing Service"]
+  I --> QD[("Qdrant<br/>ibp_documents_insurance")]
+  I -->|ibp.events.document.indexed| OUT["downstream consumers"]
+  I -->|failure| DLQ["ibp.events.document.indexed.dlq"]
+  QD -.-> RAG["RAG Service — retrieval only"]

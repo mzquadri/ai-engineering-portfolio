@@ -1,0 +1,32 @@
+%% Simplified overview for README rendering. The authoritative version is
+%% assets/architecture/01-ai-systems-landscape.svg
+flowchart LR
+  SRC[/"Official publishers<br/>GII · CELLAR"/]
+  DOCS[/"Insurance documents"/]
+
+  subgraph LKD["Legal Knowledge Database — implemented by me"]
+    EP["Entity Producer"] --> PRE["Ingestion Preprocessor"]
+    PRE --> LO["Ingestion Loader"]
+    HS["Health Service"] --> EP
+    DASH["Legal KB Dashboard"] --> HS
+  end
+
+  subgraph DI["Document Intelligence — extended by me"]
+    DX["Document Extractor"] --> IX["Indexing Service"]
+    IX --> RG["RAG Service"]
+  end
+
+  PG[("PostgreSQL")]
+  QD[("Qdrant")]
+  NE[("Neo4j")]
+  MO[("MinIO")]
+
+  SRC --> HS
+  DOCS --> DX
+  PRE ==>|sole writer| PG
+  LO ==>|sole writer| QD
+  LO ==>|sole writer| NE
+  EP ==>|captures| MO
+  IX --> QD
+  PG -.->|read-only| LO
+  PG -.->|inspects| HS

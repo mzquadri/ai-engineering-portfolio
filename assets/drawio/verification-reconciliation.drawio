@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net" type="device"><diagram name="Verification and reconciliation"><mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" background="#070A0F" math="0" shadow="0"><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="n2" value="Captured source, digest-proven
+
+The publisher&apos;s own bytes,
+in MinIO, hashed at capture" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#241B3D;strokeColor=#A78BFA;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="60" y="60" width="300" height="100" as="geometry"/></mxCell><mxCell id="n3" value="An independent denominator
+
+Inventory built with stdlib and
+defusedxml; imports no parser code
+
+tools/oracle_gii_structure.py" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="60" y="200" width="300" height="120" as="geometry"/></mxCell><mxCell id="n4" value="Pre-flight
+
+Is this structure recognised?" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="60" y="360" width="300" height="80" as="geometry"/></mxCell><mxCell id="n5" value="BLOCKED — no ingest
+
+Stop and report the gap.
+Never weaken the gate." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="60" y="490" width="300" height="100" as="geometry"/></mxCell><mxCell id="n6" value="Ingest, then store
+
+PostgreSQL, then Qdrant + Neo4j" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="430" y="360" width="300" height="80" as="geometry"/></mxCell><mxCell id="n7" value="Corpus baseline
+
+Does every already-certified law
+still reproduce under today&apos;s rules?" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="430" y="200" width="300" height="100" as="geometry"/></mxCell><mxCell id="n8" value="No verdict for ANY law
+
+Including the one being certified" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="430" y="60" width="300" height="90" as="geometry"/></mxCell><mxCell id="n9" value="Run every applicable gate
+
+14 total · 7 badge-required
+DE 14 apply · EU 12 apply
+
+POST /internal/laws/{key}/verify" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="800" y="200" width="320" height="130" as="geometry"/></mxCell><mxCell id="n10" value="verification_checks
+
+One row per gate per generation.
+The badge is a view over this table.
+
+law_verification_state" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="800" y="380" width="320" height="120" as="geometry"/></mxCell><mxCell id="n11" value="Four separate answers, never one badge
+
+Verification status · verdict freshness ·
+source currency · live store integrity" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1180" y="200" width="340" height="130" as="geometry"/></mxCell><mxCell id="n12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n2" target="n3"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n3" target="n4"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n14" value="unknown structure" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F87171;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n4" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n15" value="recognised" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n4" target="n6"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n6" target="n7"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n17" value="baseline fails" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F87171;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n7" target="n8"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n18" value="baseline holds" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n7" target="n9"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n19" value="record" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n9" target="n10"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n20" value="read back" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#60A5FA;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n10" target="n11"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n21" value="RECONCILIATION · changes nothing
+
+Read PostgreSQL identity tuples, compare Qdrant and Neo4j.
+LIVE_CONSISTENT · DRIFT_DETECTED · CHECK_UNAVAILABLE
+
+LIVE_CONSISTENT is the last sweep&apos;s answer, not a guarantee." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="60" y="640" width="480" height="130" as="geometry"/></mxCell><mxCell id="n22" value="VERIFY · changes nothing
+
+Poll the publisher, write currency evidence,
+ask the preprocessor to run the gates.
+
+Changes no version, section, chunk, vector or edge." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="570" y="640" width="480" height="130" as="geometry"/></mxCell><mxCell id="n23" value="RE-INGEST · changes the corpus
+
+Fetch, capture, rewrite canonical state, reconverge stores.
+
+Zero-downtime: nothing is purged first, so the old generation
+stays queryable and a failed ingest leaves it untouched." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1080" y="640" width="460" height="130" as="geometry"/></mxCell></root></mxGraphModel></diagram></mxfile>

@@ -1,0 +1,56 @@
+# --- Python build artefacts -------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# --- generator scratch files ------------------------------------------------
+# gen_deck.py writes these while rendering and removes them; listed so an
+# interrupted run cannot leave one committed.
+_deck.print.html
+_slide.html
+_dbg.html
+_mobiletest.html
+
+# --- OS noise --------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.swp
+
+# --- editor / tooling ------------------------------------------------------
+.idea/
+.vscode/
+node_modules/
+.cache/
+.pytest_cache/
+.ruff_cache/
+
+# --- local screenshots and exports -----------------------------------------
+# QA screenshots belong in a scratch directory, not in the repository.
+qa/
+screenshots/
+*.local.*
+
+# --- print-resolution exports ------------------------------------------------
+# 3x exports are ~5760px print masters, reproducible in one command and
+# referenced by nothing in the repository. Kept out of Git so the clone stays
+# small; regenerate with:
+#   python tools/export_png.py assets/png 3 assets/architecture/<name>.svg
+*@3x.png
+
+# --- PRIVATE EVIDENCE ------------------------------------------------------
+# private/ holds the audit trail: exact repository paths, per-repository
+# authorship, colleague names, the internal hostnames and endpoints that were
+# redacted, and three documentation-versus-code discrepancies found in
+# employer repositories.
+#
+# A manual inspection found that EVERY sensitive string in the tree lives in
+# here and nowhere else, which is why it is a directory rather than a
+# judgement call. tools/check_public.py skips it by name.
+#
+# EXCLUDED BY DEFAULT. To publish the evidence to a PRIVATE remote, comment
+# the next line out -- never on a public one.
+private/

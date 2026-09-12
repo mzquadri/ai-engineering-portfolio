@@ -1,0 +1,17 @@
+%% AI Radiologist. Authoritative version:
+%% assets/architecture/18-ai-radiologist.svg
+flowchart LR
+  IMG[/"chest radiograph<br/>entityType: MEDICAL_IMAGE"/]
+  IMG -->|ibp.events.inbound| PRE["preprocess<br/>224 x 224, normalise"]
+  PRE --> CLF["DenseNet-121<br/>sigmoid per class, not softmax"]
+  CLF --> TH{"probability >= that finding's<br/>calibrated threshold?"}
+  TH -->|yes| POS["positive finding<br/>+ ICD-10 + urgency band"]
+  TH -->|no| NEG["negative"]
+  CLF --> CAM["Grad-CAM++ attribution<br/>anatomical priors deliberately OFF"]
+  CAM --> HM[("heatmap in MinIO")]
+  POS --> OUT["ibp.events.ai.processed"]
+  NEG --> OUT
+  HM --> OUT
+
+  N["Thresholds are Youden's J optima per class:<br/>Cardiomegaly 0.130 ... Effusion 0.424.<br/>Presence uses the calibrated threshold;<br/>urgency uses fixed bands. Different questions."]
+  TH --- N

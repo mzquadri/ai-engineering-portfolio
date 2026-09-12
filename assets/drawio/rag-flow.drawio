@@ -1,0 +1,47 @@
+<mxfile host="app.diagrams.net" type="device"><diagram name="Retrieval and grounded answering"><mxGraphModel dx="1600" dy="620" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="620" background="#070A0F" math="0" shadow="0"><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="n2" value="VERIFIED IN THIS WORKSPACE" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="1520" height="190" as="geometry"/></mxCell><mxCell id="n3" value="Query
+
+Operator search, or a question
+arriving as an event
+
+GET /search" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="70" y="85" width="260" height="120" as="geometry"/></mxCell><mxCell id="n4" value="Embed the query
+
+BGE-M3 — the same model that
+embedded the corpus
+
+dense 1024 + sparse" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="360" y="85" width="260" height="120" as="geometry"/></mxCell><mxCell id="n5" value="Hybrid retrieval
+
+Dense and sparse prefetch,
+fused server-side by RRF
+
+prefetch = max(limit, 20)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="650" y="85" width="260" height="120" as="geometry"/></mxCell><mxCell id="n6" value="Qdrant
+
+One point per chunk; both law
+families in one collection" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="940" y="85" width="260" height="120" as="geometry"/></mxCell><mxCell id="n7" value="Cited chunks
+
+law and section_number travel
+with every chunk, so a
+citation is data, not prose" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1230" y="85" width="300" height="120" as="geometry"/></mxCell><mxCell id="n8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#60A5FA;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n3" target="n4"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n4" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n10" value="query_points" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n5" target="n6"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n6" target="n7"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n12" value="ANSWERING · EXISTING COMPONENT, NOT INSPECTABLE HERE" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="270" width="1520" height="190" as="geometry"/></mxCell><mxCell id="n13" value="Neo4j
+
+What each provision cites" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="70" y="315" width="260" height="110" as="geometry"/></mxCell><mxCell id="n14" value="Legal Chatbot
+
+Consumes ibp.events.inbound,
+publishes ibp.events.ai.processed
+
+repository not present here" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="360" y="315" width="260" height="110" as="geometry"/></mxCell><mxCell id="n15" value="LLM
+
+Self-hosted, OpenAI-compatible.
+Container runs offline for weights.
+
+HF_HUB_OFFLINE=1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="650" y="315" width="260" height="110" as="geometry"/></mxCell><mxCell id="n16" value="Grounded answer
+
+Returned with the provisions
+it was built from" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="940" y="315" width="260" height="110" as="geometry"/></mxCell><mxCell id="n17" value="Citation validation
+
+Check each cited section against
+the corpus. Zero LLM calls.
+
+DESIGNED, NOT IMPLEMENTED" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1230" y="315" width="300" height="110" as="geometry"/></mxCell><mxCell id="n18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n7" target="n14"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n13" target="n14"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n14" target="n15"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n15" target="n16"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F87171;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n16" target="n17"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n23" value="Ingestion-time components write stores and are the only things that do.
+Query-time components read. The query path has no gate of its own: it
+trusts the corpus because the corpus was verified before it was served." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="40" y="490" width="760" height="90" as="geometry"/></mxCell><mxCell id="n24" value="The answer-level citation check is a design position, not delivered work.
+An LLM citing a section that does not exist is the specific failure that
+makes a legal assistant dangerous, and checking costs no model call." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="830" y="490" width="730" height="90" as="geometry"/></mxCell></root></mxGraphModel></diagram></mxfile>

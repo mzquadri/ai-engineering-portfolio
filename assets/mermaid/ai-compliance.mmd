@@ -1,0 +1,19 @@
+%% AI Compliance and the questionnaire bridge. Authoritative version:
+%% assets/architecture/19-ai-compliance.svg
+flowchart TD
+  subgraph PROD["AI Compliance product - existing platform, not my code"]
+    UI["assessment UI<br/>questionnaire"] --> BE["compliance backend"]
+    BE --> SCAN["website scan<br/>headless browser"]
+    BE -->|ibp.events.inbound| KB["knowledge processor"]
+    KB -->|ibp.events.ai.processed| BE
+    BE --> RPT["PDF report<br/>short-lived render token"]
+  end
+
+  subgraph BRIDGE["the questionnaire bridge"]
+    Q1["questionnaire version published<br/>domain: AI_COMPLIANCE"] -->|questionnaire.structured| Q2["ingestion loader<br/>fetch, hash-check, embed"]
+    Q2 --> Q3[("Neo4j<br/>Question / Answer / ComplianceFlag<br/>each with a 1024-dim embedding")]
+  end
+
+  Q3 --> KB
+  CORPUS[("legal corpus<br/>verified provisions")] --> KB
+  RPT --> WHY["a report cites a provision.<br/>If the corpus drifted, the report is<br/>confidently wrong - which is why<br/>the corpus is gated."]

@@ -1,0 +1,17 @@
+%% Ingestion, end to end. Authoritative version:
+%% assets/architecture/02-legal-knowledge-database.svg
+flowchart TD
+  A[/"Publisher source<br/>GII ZIP or CELLAR FORMEX"/]
+  A -->|health service fetches| B["Entity Producer<br/>SHA-256, capture, envelope"]
+  B --> MO[("MinIO capture<br/>{eventId}/{filename}")]
+  B -->|legal.knowledge.database.events.inbound| C["Preprocessor"]
+  C --> D["registry lookup → parser dispatch<br/>gii_norm | formex_v4"]
+  D --> E["references, citations, chunks"]
+  E --> PG[("PostgreSQL<br/>one transaction + 3 ruleset digests")]
+  PG --> MIR[("archive mirror row<br/>written last, after read-back")]
+  MIR -->|legal.knowledge.database.law.structured| F["Loader"]
+  F --> G["BGE-M3 dense 1024 + sparse"]
+  G --> QD[("Qdrant<br/>upsert → delete stale → count fence")]
+  QD --> NE[("Neo4j<br/>merge by id → count fence")]
+  NE -->|legal.knowledge.database.law.embedded| H["verification: 14 gates"]
+  H --> I[("verification_checks")]
