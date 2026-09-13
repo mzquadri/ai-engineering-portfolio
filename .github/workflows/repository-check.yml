@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The commit-message gate reads history, so it needs the commits.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v7
         with:
@@ -21,6 +24,38 @@ jobs:
       # reaches for a convenient package.
       - name: Confirm the tooling is still standard library only
         run: python tools/check_stdlib_only.py
+
+      # Commit messages, over the commits this push or pull request actually adds.
+      #
+      # Range rather than history, deliberately. A single bad message on a published branch
+      # would otherwise fail every future build on something nobody can fix without a force
+      # push, and a check that always fails gets deleted. This history is clean as of
+      # 13 Sep 2026, verified with --all; the range is about what happens after that.
+      #
+      # The range is resolved defensively: a new branch reports an all-zero "before", a force
+      # push can name a commit the runner does not have, and a pull request has to be measured
+      # against its merge base. Where no range resolves it falls back to the head commit
+      # rather than to nothing, because a guard that checks zero commits is worse than none.
+      - name: Commit messages (new commits only)
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = "pull_request" ]; then
+            base=$(git merge-base "$BASE_SHA" "$HEAD_SHA")
+            range="${base}..${HEAD_SHA}"
+          elif [ -n "${BEFORE:-}" ]             && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]             && git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            range="${BEFORE}..${HEAD_SHA}"
+          else
+            echo "No resolvable predecessor; checking the head commit only."
+            range="${HEAD_SHA}~1..${HEAD_SHA}"
+            git cat-file -e "${HEAD_SHA}~1^{commit}" 2>/dev/null || range="$HEAD_SHA"
+          fi
+          echo "Checking commit messages in: ${range}"
+          python tools/check_commit_messages.py "$range"
 
       # The redaction review, made executable. PUBLICATION_CHECKLIST.md refers to
       # this gate: writing a review is worth little if nobody re-runs it, and this

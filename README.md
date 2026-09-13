@@ -205,6 +205,19 @@ names, Kafka topic names, store and collection names and gate identifiers are
 published, because they are private-network identifiers with no routable meaning
 and the architecture cannot be explained without them.
 
+### Commit messages
+
+```bash
+git config core.hooksPath .githooks              # once per clone
+python tools/check_commit_messages.py --all
+```
+
+The gate refuses a trailer that asserts machine authorship, a trailer naming an assistant, and
+a link back to an assistant session. It reads commit messages only, never file content, and it
+matches attribution positions rather than vocabulary -- a message may name an assistant or a
+vendor in prose. CI checks the commits each push adds rather than the whole history, so one bad
+message could never fail every future build on something that needs a force push to correct.
+
 The redaction reasoning is summarised in
 [evidence-summary.md](docs/architecture/evidence-summary.md#what-was-redacted-and-why),
 the two remaining judgement calls are in

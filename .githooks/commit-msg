@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Reject an attribution trailer or an assistant session link before the commit exists.
+#
+# Runs the same checker CI runs, in its --msg mode, so a message refused here would be refused
+# by CI. Install with:  git config core.hooksPath .githooks
+set -euo pipefail
+
+exec python "$(git rev-parse --show-toplevel)/tools/check_commit_messages.py" --msg "$1"
