@@ -1,0 +1,145 @@
+<mxfile host="app.diagrams.net" type="device"><diagram name="Legal Knowledge Database — two pipelines"><mxGraphModel dx="1700" dy="1340" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1340" background="#070A0F" math="0" shadow="0"><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="n2" value="1 · PIPELINE A — INGESTION · PUBLISHER&apos;S BYTES TO A STORED, PROVABLE LAW" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="1620" height="280" as="geometry"/></mxCell><mxCell id="n3" value="German federal publisher
+
+gesetze-im-internet.de
+The health service downloads
+the publisher&apos;s own ZIP.
+
+gii_norm · 32 of 52 laws" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#241B3D;strokeColor=#A78BFA;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;dashed=1;dashPattern=3 3;" vertex="1" parent="1"><mxGeometry x="70" y="90" width="300" height="110" as="geometry"/></mxCell><mxCell id="n4" value="EU · CELLAR
+
+A FORMEX v4 bundle fetched by
+content negotiation. CELLAR is the
+repository, FORMEX the markup,
+CELEX the identifier.
+
+formex_v4 · 20 of 52 laws" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#241B3D;strokeColor=#A78BFA;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;dashed=1;dashPattern=3 3;" vertex="1" parent="1"><mxGeometry x="70" y="210" width="300" height="100" as="geometry"/></mxCell><mxCell id="n5" value="1 · Acquire
+
+The health service fetches the
+publisher&apos;s own file and resolves
+CELEX for EU acts. It observes and
+judges freshness; it never parses.
+
+:8000 · health service" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="410" y="90" width="280" height="220" as="geometry"/></mxCell><mxCell id="n6" value="2 · Capture
+
+SHA-256 before anything interprets
+the bytes, written to object storage
+under a fresh prefix, then one event.
+Parses nothing — no ZIP, no XML.
+
+:4675 · entity producer" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0B2D33;strokeColor=#22D3EE;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="730" y="90" width="280" height="220" as="geometry"/></mxCell><mxCell id="n7" value="3 · Structure
+
+A registry decides the canonical key
+and the parser; GII-NORM or
+FORMEX v4 extracts citations to
+provision level and chunks the active
+sections — one transaction, three
+ruleset digests.
+
+:4698 · preprocessor" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1050" y="90" width="280" height="220" as="geometry"/></mxCell><mxCell id="n8" value="4 · Project
+
+One REPEATABLE READ snapshot,
+embedded with BGE-M3 (dense 1024
++ sparse, one pass), then Qdrant and
+Neo4j converged in order, each fenced
+on an exact count. Refuses the law
+rather than truncate a vector.
+
+:4710-4711 · loader" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1370" y="90" width="280" height="220" as="geometry"/></mxCell><mxCell id="n9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#A78BFA;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n3" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#A78BFA;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n4" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=6 5;" edge="1" parent="1" source="n5" target="n6"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n12" value="events.inbound" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=6 5;" edge="1" parent="1" source="n6" target="n7"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n13" value="law.structured" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=6 5;" edge="1" parent="1" source="n7" target="n8"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n14" value="2 · THE CORPUS — THREE DATABASES, AND THE EVIDENCE BEHIND THEM" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="350" width="1620" height="240" as="geometry"/></mxCell><mxCell id="n15" value="PostgreSQL · the laws
+
+Canonical legal state as tables, plus
+source evidence, assurance and
+currency — the evidence tables
+append-only
+
+~35 tables · sole writer: preprocessor" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="70" y="400" width="370" height="160" as="geometry"/></mxCell><mxCell id="n16" value="Qdrant · the vectors
+
+One point per chunk, dense and
+sparse together in one collection,
+both law families side by side
+
+uuid5(ns, chunk_id)
+sole writer: loader" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="470" y="400" width="370" height="160" as="geometry"/></mxCell><mxCell id="n17" value="Neo4j · the relations
+
+Which provision cites which, across
+statutes — exactly what a vector hit
+cannot tell you
+
+REFERS_TO · CITES_LAW
+sole writer: loader" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="870" y="400" width="370" height="160" as="geometry"/></mxCell><mxCell id="n18" value="MinIO · the source bytes
+
+What the publisher actually served,
+hashed on arrival and mirrored into
+an object-locked bucket
+
+{eventId}/{filename} · SHA-256
+sole writer: entity producer" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="1270" y="400" width="380" height="160" as="geometry"/></mxCell><mxCell id="n19" value="captures" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n6" target="n18"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n20" value="exclusive write" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n7" target="n15"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n21" value="1st" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n8" target="n16"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n22" value="2nd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n8" target="n17"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n23" value="3 · VERIFICATION — ASKED AND ANSWERED AFTER EVERY INGEST" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="620" width="1620" height="210" as="geometry"/></mxCell><mxCell id="n24" value="Fourteen gates, run by the ingest
+
+Publishing law.embedded is what runs them —
+nobody asks. Structural fidelity, citation
+correctness, cross-store equality and source
+currency, and the verdict is never one badge.
+
+7 badge-required · 7 recorded" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="70" y="670" width="500" height="140" as="geometry"/></mxCell><mxCell id="n25" value="A denominator that cannot share the defect
+
+The structural inventory is read a second time on
+a different XML stack, importing no parser code.
+And the prover proves itself first: if a certified
+law stops reproducing, no law gets a verdict.
+
+lxml iterparse · zero application imports" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="600" y="670" width="500" height="140" as="geometry"/></mxCell><mxCell id="n26" value="Reconciliation · a different question
+
+Verification asks whether this generation was
+extracted faithfully. Reconciliation asks whether
+the stores agree right now. Read-only, repairs
+nothing, and says when it cannot tell.
+
+LIVE_CONSISTENT | DRIFT_DETECTED | CHECK_UNAVAILABLE" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1130" y="670" width="520" height="140" as="geometry"/></mxCell><mxCell id="n27" value="measure" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n24" target="n15"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n28" value="compare" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n26" target="n17"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n25" target="n26"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n30" value="4 · PIPELINE B — QUERY · A QUESTION ANSWERED FROM THE STORED CORPUS" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="860" width="1620" height="270" as="geometry"/></mxCell><mxCell id="n31" value="Question
+
+An operator search, or a
+question arriving as an
+event
+
+GET /search
+ibp.events.inbound" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="70" y="910" width="250" height="200" as="geometry"/></mxCell><mxCell id="n32" value="Embed the question
+
+BGE-M3 — the same model
+that embedded the corpus.
+A different model would
+make the comparison
+meaningless.
+
+dense 1024 + sparse" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="340" y="910" width="250" height="200" as="geometry"/></mxCell><mxCell id="n33" value="Hybrid retrieval
+
+Dense and sparse prefetch,
+fused server-side by
+reciprocal rank fusion in
+one round trip
+
+prefetch = max(limit, 20)
+reads Qdrant · writes nothing" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="610" y="910" width="250" height="200" as="geometry"/></mxCell><mxCell id="n34" value="Cited chunks + graph
+
+The law key and section
+number travel in the payload.
+The graph then finds what
+the matched provision
+points at.
+
+reads Neo4j · writes nothing" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="880" y="910" width="250" height="200" as="geometry"/></mxCell><mxCell id="n35" value="Legal Chatbot + LLM
+
+Consumes ibp.events.inbound,
+publishes ibp.events.ai.
+processed. Self-hosted,
+OpenAI-compatible endpoint.
+Repository not in this
+workspace.
+
+HF_HUB_OFFLINE=1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1150" y="910" width="250" height="200" as="geometry"/></mxCell><mxCell id="n36" value="Grounded answer
+
+Returned with the
+provisions it was built
+from
+
+ibp.events.ai.processed" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1420" y="910" width="230" height="200" as="geometry"/></mxCell><mxCell id="n37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n31" target="n32"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n32" target="n33"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n39" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n33" target="n34"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n40" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n34" target="n35"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n35" target="n36"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n42" value="query_points" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n16" target="n33"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n43" value="expand" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n17" target="n34"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n44" value="TWO PATHS, ONE CORPUS — the two pipelines share one corpus and nothing else. Every component in A writes exactly one store, and the exclusive-write
+arrows are the only writes that exist; every component in B reads and returns. That is why a retrieval bug cannot corrupt the corpus and why a
+question cannot start an ingest — and why B has no verification gate of its own and needs none: it trusts the corpus because A proved it first.
+Not solved: no dead-letter topic on this pipeline, so one unprocessable law blocks its partition until a human intervenes; and no EU law is certified,
+because the end-to-end assurance contract does not exist yet — a missing contract, not a missing parser." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="40" y="1160" width="1620" height="130" as="geometry"/></mxCell></root></mxGraphModel></diagram></mxfile>

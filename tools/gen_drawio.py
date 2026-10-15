@@ -558,6 +558,296 @@ def overview() -> None:
     d.write("systems-overview.drawio")
 
 
+def local_environment() -> None:
+    """Diagram 20 as an editable source -- the only deployment view in the set.
+
+    Ports, languages and ownership come from architecture-notes.md sections 1
+    and 2. The three dashed boxes at the bottom are recorded absences, not
+    omissions: drawing them dashed is what stops a reader assuming the stack
+    has a DLQ, a monitoring plane or an agentic retrieval graph.
+    """
+    d = Doc("Local environment", 1700, 1320)
+
+    # ---- 1. repositories and the environment
+    d.lane("1 · REPOSITORIES, AND THE ENVIRONMENT AS ONE OF THEM",
+           40, 40, 1620, 200)
+    env = d.box("local-env\n\nCompose files, service YAML and the\n"
+                "pinned dependency set\n\n"
+                "the environment is a versioned repo,\n"
+                "not a document describing one",
+                70, 90, 370, 130, role="event", level="shared")
+    lib = d.box("ai-utils\n\nShared library imported by the\nPython services\n\n"
+                "constants · event models ·\ncalibrated thresholds",
+                470, 90, 370, 130, role="ai", level="extended")
+    svc = d.box("Nine service repositories\n\nSeven names appear in the evidence\n"
+                "pack; four are not published.\n\n"
+                "A dash means not in evidence —\nnot that no repository exists.",
+                870, 90, 370, 130, role="neutral", level="integrated")
+    img = d.box("Images built in CI\n\nRun from Docker Compose on a lab\nhost.\n\n"
+                "No production deployment is\nclaimed anywhere.",
+                1270, 90, 360, 130, role="neutral", level="integrated")
+    d.edge(env, img, "builds", role="event")
+    d.edge(lib, svc, "imported by", role="ai", kind="verify")
+
+    # ---- 2. container discipline
+    d.lane("2 · HOW DEPENDENCIES REACH A CONTAINER — ADR-003, "
+           "SUPERSEDED BY ADR-004", 40, 270, 1620, 200)
+    adr3 = d.box("ADR-003 · rebuild discipline\n\n"
+                 "Written after the local overlay images were found running\n"
+                 "code that predated completed work — while the repository,\n"
+                 "the docs and the tests all said otherwise.\n\n"
+                 "the failure that looked like success",
+                 70, 320, 770, 130, role="warn", level="integrated")
+    adr4 = d.box("ADR-004 · editable install + boot-time check\n\n"
+                 "Supersedes ADR-003. The package is installed editable and a\n"
+                 "check runs at boot, so a drifted container fails at startup\n"
+                 "instead of serving a route table nobody expected.\n\n"
+                 "fail at boot, not at request time",
+                 870, 320, 760, 130, role="trust", level="integrated")
+    d.edge(img, adr3, "", role="neutral")
+    d.edge(adr3, adr4, "superseded by", role="trust")
+
+    # ---- 3. runtime
+    d.lane("3 · RUNTIME — DOCKER COMPOSE, FIVE HOST PORTS",
+           40, 500, 1620, 230)
+    ep = d.box("Entity Producer\n\nPolls the publishers, captures\n"
+               "the bytes, announces the capture\n\n:4675 · java · spring boot",
+               70, 550, 280, 150, role="event", level="extended")
+    pre = d.box("Ingestion Preprocessor\n\nParses GII-NORM and FORMEX,\n"
+                "writes canonical state, then\nruns the gates\n\n"
+                ":4698 · python · fastapi",
+                380, 550, 280, 150, role="ai", level="primary")
+    lo = d.box("Ingestion Loader\n\nEmbeds and projects into the\n"
+               "vector and graph stores\n\n"
+               ":4710-4711 · a port range,\nbecause it is built to scale",
+               690, 550, 280, 150, role="ai", level="primary")
+    hs = d.box("Health Service\n\nCurrency, snapshots, audit log.\n"
+               "Judges freshness evidence;\nnever fetches it.\n\n"
+               ":8000 · python · fastapi",
+               1000, 550, 280, 150, role="ui", level="primary")
+    dash = d.box("Operator Dashboard\n\nRe-ingest, verify, reconcile,\n"
+                 "withdraw. Writes nothing, and\nships with no store client.\n\n"
+                 ":3000 · typescript · next.js 16",
+                 1310, 550, 320, 150, role="ui", level="primary")
+    d.edge(ep, pre, "events.inbound", role="event", kind="async")
+    d.edge(pre, lo, "law.structured", role="event", kind="async")
+    d.edge(lo, pre, "law.embedded", role="event", kind="async")
+    d.edge(dash, hs, "REST", role="ui")
+
+    # ---- 4. persistence
+    d.lane("4 · PERSISTENCE — THREE DATABASES AND ONE OBJECT STORE",
+           40, 760, 1620, 240)
+    pg = d.box("PostgreSQL\n\nCanonical legal state, source\n"
+               "evidence, assurance, currency —\nfour concerns, one database\n\n"
+               "cannot: search by meaning",
+               70, 810, 360, 160, role="store", level="primary", store=True)
+    qd = d.box("Qdrant\n\nDense 1024 + sparse vectors in one\n"
+               "collection, fused server-side\n\n"
+               "point id = uuid5(ns, chunk_id)\ncannot: follow a citation chain",
+               470, 810, 360, 160, role="store", level="primary", store=True)
+    ne = d.box("Neo4j\n\nThe provision reference graph —\n"
+               "what each provision cites,\nacross statutes\n\n"
+               "MERGE by id · REFERS_TO · CITES_LAW",
+               870, 810, 360, 160, role="store", level="primary", store=True)
+    mo = d.box("MinIO\n\nPublisher bytes, hashed before\n"
+               "anything parses them, plus an\nobject-locked evidence bucket\n\n"
+               "{eventId}/{filename} · SHA-256",
+               1270, 810, 360, 160, role="store", level="extended", store=True)
+    d.edge(pre, pg, "exclusive write", role="store", kind="own")
+    d.edge(hs, pg, "currency · audit", role="store", kind="own")
+    d.edge(lo, qd, "1st", role="store", kind="own")
+    d.edge(lo, ne, "2nd", role="store", kind="own")
+    d.edge(ep, mo, "captures", role="store", kind="own")
+    d.edge(pre, mo, "archive mirror", role="store", kind="own")
+
+    # ---- 5. recorded absences
+    d.lane("5 · DRAWN BECAUSE IT IS ABSENT — RECORDED IN THE REPOSITORY",
+           40, 1030, 1620, 190)
+    d.box("No dead-letter topic · legal pipeline\n\n"
+          "A permanently unprocessable law is redelivered\n"
+          "for ever and blocks its partition until a human\n"
+          "intervenes. The document pipeline has a DLQ;\n"
+          "the legal one does not.",
+          70, 1080, 500, 120, role="warn", level="external")
+    d.box("No monitoring plane in the delivered stack\n\n"
+          "Prometheus and Alertmanager rules were written\n"
+          "and promtool-tested, then withdrawn. Nothing in\n"
+          "the running stack scrapes or alerts.",
+          600, 1080, 500, 120, role="warn", level="external")
+    d.box("No agentic retrieval graph\n\n"
+          "A ten-node design exists in the architecture\n"
+          "material. langgraph is commented out and the\n"
+          "retrieval package is empty.",
+          1130, 1080, 500, 120, role="warn", level="external")
+
+    d.write("local-environment.drawio")
+
+
+def legal_kb_pipelines() -> None:
+    """Diagram 21 as an editable source -- the Legal Knowledge Database.
+
+    Two pipelines over one corpus. Pipeline A writes every store; Pipeline B
+    writes none. That separation is the reason a retrieval bug cannot corrupt
+    the corpus and a question cannot start an ingest.
+
+    CELLAR is the EU repository, FORMEX v4 the markup, CELEX the identifier an
+    act is resolved by -- three different things, and the diagram keeps them
+    apart deliberately.
+    """
+    d = Doc("Legal Knowledge Database — two pipelines", 1700, 1340)
+
+    # ---- 1. pipeline A
+    d.lane("1 · PIPELINE A — INGESTION · PUBLISHER'S BYTES TO A STORED, "
+           "PROVABLE LAW", 40, 40, 1620, 280)
+    sde = d.box("German federal publisher\n\ngesetze-im-internet.de\n"
+                "The health service downloads\nthe publisher's own ZIP.\n\n"
+                "gii_norm · 32 of 52 laws",
+                70, 90, 300, 110, role="source", level="external")
+    seu = d.box("EU · CELLAR\n\nA FORMEX v4 bundle fetched by\n"
+                "content negotiation. CELLAR is the\n"
+                "repository, FORMEX the markup,\n"
+                "CELEX the identifier.\n\nformex_v4 · 20 of 52 laws",
+                70, 210, 300, 100, role="source", level="external")
+    a1 = d.box("1 · Acquire\n\nThe health service fetches the\n"
+               "publisher's own file and resolves\n"
+               "CELEX for EU acts. It observes and\n"
+               "judges freshness; it never parses.\n\n"
+               ":8000 · health service",
+               410, 90, 280, 220, role="ui", level="primary")
+    a2 = d.box("2 · Capture\n\nSHA-256 before anything interprets\n"
+               "the bytes, written to object storage\n"
+               "under a fresh prefix, then one event.\n"
+               "Parses nothing — no ZIP, no XML.\n\n"
+               ":4675 · entity producer",
+               730, 90, 280, 220, role="event", level="extended")
+    a3 = d.box("3 · Structure\n\nA registry decides the canonical key\n"
+               "and the parser; GII-NORM or\n"
+               "FORMEX v4 extracts citations to\n"
+               "provision level and chunks the active\n"
+               "sections — one transaction, three\n"
+               "ruleset digests.\n\n:4698 · preprocessor",
+               1050, 90, 280, 220, role="ai", level="primary")
+    a4 = d.box("4 · Project\n\nOne REPEATABLE READ snapshot,\n"
+               "embedded with BGE-M3 (dense 1024\n"
+               "+ sparse, one pass), then Qdrant and\n"
+               "Neo4j converged in order, each fenced\n"
+               "on an exact count. Refuses the law\n"
+               "rather than truncate a vector.\n\n:4710-4711 · loader",
+               1370, 90, 280, 220, role="ai", level="primary")
+    d.edge(sde, a1, "", role="source")
+    d.edge(seu, a1, "", role="source")
+    d.edge(a1, a2, "", role="event", kind="async")
+    d.edge(a2, a3, "events.inbound", role="event", kind="async")
+    d.edge(a3, a4, "law.structured", role="event", kind="async")
+
+    # ---- 2. the corpus
+    d.lane("2 · THE CORPUS — THREE DATABASES, AND THE EVIDENCE BEHIND THEM",
+           40, 350, 1620, 240)
+    pg = d.box("PostgreSQL · the laws\n\nCanonical legal state as tables, plus\n"
+               "source evidence, assurance and\n"
+               "currency — the evidence tables\nappend-only\n\n"
+               "~35 tables · sole writer: preprocessor",
+               70, 400, 370, 160, role="store", level="primary", store=True)
+    qd = d.box("Qdrant · the vectors\n\nOne point per chunk, dense and\n"
+               "sparse together in one collection,\n"
+               "both law families side by side\n\n"
+               "uuid5(ns, chunk_id)\nsole writer: loader",
+               470, 400, 370, 160, role="store", level="primary", store=True)
+    ne = d.box("Neo4j · the relations\n\nWhich provision cites which, across\n"
+               "statutes — exactly what a vector hit\ncannot tell you\n\n"
+               "REFERS_TO · CITES_LAW\nsole writer: loader",
+               870, 400, 370, 160, role="store", level="primary", store=True)
+    mo = d.box("MinIO · the source bytes\n\nWhat the publisher actually served,\n"
+               "hashed on arrival and mirrored into\n"
+               "an object-locked bucket\n\n"
+               "{eventId}/{filename} · SHA-256\nsole writer: entity producer",
+               1270, 400, 380, 160, role="store", level="extended", store=True)
+    d.edge(a2, mo, "captures", role="store", kind="own")
+    d.edge(a3, pg, "exclusive write", role="store", kind="own")
+    d.edge(a4, qd, "1st", role="store", kind="own")
+    d.edge(a4, ne, "2nd", role="store", kind="own")
+
+    # ---- 3. verification
+    d.lane("3 · VERIFICATION — ASKED AND ANSWERED AFTER EVERY INGEST",
+           40, 620, 1620, 210)
+    v1 = d.box("Fourteen gates, run by the ingest\n\n"
+               "Publishing law.embedded is what runs them —\n"
+               "nobody asks. Structural fidelity, citation\n"
+               "correctness, cross-store equality and source\n"
+               "currency, and the verdict is never one badge.\n\n"
+               "7 badge-required · 7 recorded",
+               70, 670, 500, 140, role="trust", level="primary")
+    v2 = d.box("A denominator that cannot share the defect\n\n"
+               "The structural inventory is read a second time on\n"
+               "a different XML stack, importing no parser code.\n"
+               "And the prover proves itself first: if a certified\n"
+               "law stops reproducing, no law gets a verdict.\n\n"
+               "lxml iterparse · zero application imports",
+               600, 670, 500, 140, role="trust", level="primary")
+    v3 = d.box("Reconciliation · a different question\n\n"
+               "Verification asks whether this generation was\n"
+               "extracted faithfully. Reconciliation asks whether\n"
+               "the stores agree right now. Read-only, repairs\n"
+               "nothing, and says when it cannot tell.\n\n"
+               "LIVE_CONSISTENT | DRIFT_DETECTED | CHECK_UNAVAILABLE",
+               1130, 670, 520, 140, role="trust", level="primary")
+    d.edge(v1, pg, "measure", role="trust", kind="verify")
+    d.edge(v3, ne, "compare", role="trust", kind="verify")
+    d.edge(v2, v3, "", role="trust", kind="verify")
+
+    # ---- 4. pipeline B
+    d.lane("4 · PIPELINE B — QUERY · A QUESTION ANSWERED FROM THE STORED "
+           "CORPUS", 40, 860, 1620, 270)
+    b1 = d.box("Question\n\nAn operator search, or a\n"
+               "question arriving as an\nevent\n\n"
+               "GET /search\nibp.events.inbound",
+               70, 910, 250, 200, role="ui", level="integrated")
+    b2 = d.box("Embed the question\n\nBGE-M3 — the same model\n"
+               "that embedded the corpus.\nA different model would\n"
+               "make the comparison\nmeaningless.\n\ndense 1024 + sparse",
+               340, 910, 250, 200, role="ai", level="primary")
+    b3 = d.box("Hybrid retrieval\n\nDense and sparse prefetch,\n"
+               "fused server-side by\nreciprocal rank fusion in\n"
+               "one round trip\n\nprefetch = max(limit, 20)\n"
+               "reads Qdrant · writes nothing",
+               610, 910, 250, 200, role="ai", level="primary")
+    b4 = d.box("Cited chunks + graph\n\nThe law key and section\n"
+               "number travel in the payload.\nThe graph then finds what\n"
+               "the matched provision\npoints at.\n\n"
+               "reads Neo4j · writes nothing",
+               880, 910, 250, 200, role="trust", level="primary")
+    b5 = d.box("Legal Chatbot + LLM\n\nConsumes ibp.events.inbound,\n"
+               "publishes ibp.events.ai.\nprocessed. Self-hosted,\n"
+               "OpenAI-compatible endpoint.\n"
+               "Repository not in this\nworkspace.\n\nHF_HUB_OFFLINE=1",
+               1150, 910, 250, 200, role="ai", level="integrated")
+    b6 = d.box("Grounded answer\n\nReturned with the\n"
+               "provisions it was built\nfrom\n\n"
+               "ibp.events.ai.processed",
+               1420, 910, 230, 200, role="ui", level="integrated")
+    d.edge(b1, b2, "", role="ai")
+    d.edge(b2, b3, "", role="ai")
+    d.edge(b3, b4, "", role="trust")
+    d.edge(b4, b5, "", role="ai")
+    d.edge(b5, b6, "", role="ai")
+    d.edge(qd, b3, "query_points", role="store", kind="verify")
+    d.edge(ne, b4, "expand", role="store", kind="verify")
+
+    d.box("TWO PATHS, ONE CORPUS — the two pipelines share one corpus and nothing "
+          "else. Every component in A writes exactly one store, and the exclusive-write\n"
+          "arrows are the only writes that exist; every component in B reads and "
+          "returns. That is why a retrieval bug cannot corrupt the corpus and why a\n"
+          "question cannot start an ingest — and why B has no verification gate of its "
+          "own and needs none: it trusts the corpus because A proved it first.\n"
+          "Not solved: no dead-letter topic on this pipeline, so one unprocessable law "
+          "blocks its partition until a human intervenes; and no EU law is certified,\n"
+          "because the end-to-end assurance contract does not exist yet — a missing "
+          "contract, not a missing parser.",
+          40, 1160, 1620, 130, role="trust", level="integrated")
+
+    d.write("legal-kb-pipelines.drawio")
+
+
 if __name__ == "__main__":
     print("generating editable diagrams.net sources")
     legal_platform()
@@ -566,3 +856,5 @@ if __name__ == "__main__":
     insurance_ai()
     event_pipelines()
     overview()
+    local_environment()
+    legal_kb_pipelines()

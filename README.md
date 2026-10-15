@@ -137,11 +137,13 @@ accuracy figure is claimed.
 | **Document lifecycle** | [eleven stages](assets/architecture/03-document-ingestion-lifecycle.svg) · [state machine](assets/architecture/15-document-state-machine.svg) |
 | **Medical imaging** | [classification, calibration and attribution](assets/architecture/18-ai-radiologist.svg) — research prototype |
 | **AI Compliance** | [the product the corpus serves](assets/architecture/19-ai-compliance.svg) |
+| **Two pipelines, one corpus** | [the whole Legal Knowledge Database](assets/architecture/21-legal-knowledge-database-pipelines.svg) — Pipeline A ingests, proves and stores the law; Pipeline B answers from it. A writes every store, B writes none |
+| **Local environment** | [repositories, images and what actually runs](assets/architecture/20-local-environment.svg) — the only deployment view: five services, five host ports, three databases and an object store |
 | **Contribution map** | [every repository, classified](assets/architecture/12-my-contributions.svg) |
 | **Failure & recovery** | [fifteen documented failures](assets/architecture/14-failure-recovery-and-trust.svg) |
 | **Design decisions** | [ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md) — context, reason, trade-off, limitation |
 
-All 20 diagrams: [`assets/architecture/`](assets/architecture/) as SVG,
+All 22 diagrams: [`assets/architecture/`](assets/architecture/) as SVG,
 [`assets/png/`](assets/png/) as PNG, [`assets/drawio/`](assets/drawio/) as
 editable diagrams.net sources, [`assets/mermaid/`](assets/mermaid/) as simplified
 Mermaid.

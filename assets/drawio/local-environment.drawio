@@ -1,0 +1,103 @@
+<mxfile host="app.diagrams.net" type="device"><diagram name="Local environment"><mxGraphModel dx="1700" dy="1320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1320" background="#070A0F" math="0" shadow="0"><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="n2" value="1 · REPOSITORIES, AND THE ENVIRONMENT AS ONE OF THEM" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="1620" height="200" as="geometry"/></mxCell><mxCell id="n3" value="local-env
+
+Compose files, service YAML and the
+pinned dependency set
+
+the environment is a versioned repo,
+not a document describing one" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0B2D33;strokeColor=#22D3EE;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="70" y="90" width="370" height="130" as="geometry"/></mxCell><mxCell id="n4" value="ai-utils
+
+Shared library imported by the
+Python services
+
+constants · event models ·
+calibrated thresholds" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="470" y="90" width="370" height="130" as="geometry"/></mxCell><mxCell id="n5" value="Nine service repositories
+
+Seven names appear in the evidence
+pack; four are not published.
+
+A dash means not in evidence —
+not that no repository exists." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#161C24;strokeColor=#7D8B9C;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="870" y="90" width="370" height="130" as="geometry"/></mxCell><mxCell id="n6" value="Images built in CI
+
+Run from Docker Compose on a lab
+host.
+
+No production deployment is
+claimed anywhere." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#161C24;strokeColor=#7D8B9C;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1270" y="90" width="360" height="130" as="geometry"/></mxCell><mxCell id="n7" value="builds" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n3" target="n6"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n8" value="imported by" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#818CF8;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=2 4;endArrow=open;" edge="1" parent="1" source="n4" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n9" value="2 · HOW DEPENDENCIES REACH A CONTAINER — ADR-003, SUPERSEDED BY ADR-004" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="270" width="1620" height="200" as="geometry"/></mxCell><mxCell id="n10" value="ADR-003 · rebuild discipline
+
+Written after the local overlay images were found running
+code that predated completed work — while the repository,
+the docs and the tests all said otherwise.
+
+the failure that looked like success" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="70" y="320" width="770" height="130" as="geometry"/></mxCell><mxCell id="n11" value="ADR-004 · editable install + boot-time check
+
+Supersedes ADR-003. The package is installed editable and a
+check runs at boot, so a drifted container fails at startup
+instead of serving a route table nobody expected.
+
+fail at boot, not at request time" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0C2A1E;strokeColor=#34D399;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="870" y="320" width="760" height="130" as="geometry"/></mxCell><mxCell id="n12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7D8B9C;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n6" target="n10"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n13" value="superseded by" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#34D399;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n10" target="n11"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n14" value="3 · RUNTIME — DOCKER COMPOSE, FIVE HOST PORTS" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="500" width="1620" height="230" as="geometry"/></mxCell><mxCell id="n15" value="Entity Producer
+
+Polls the publishers, captures
+the bytes, announces the capture
+
+:4675 · java · spring boot" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0B2D33;strokeColor=#22D3EE;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="70" y="550" width="280" height="150" as="geometry"/></mxCell><mxCell id="n16" value="Ingestion Preprocessor
+
+Parses GII-NORM and FORMEX,
+writes canonical state, then
+runs the gates
+
+:4698 · python · fastapi" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="380" y="550" width="280" height="150" as="geometry"/></mxCell><mxCell id="n17" value="Ingestion Loader
+
+Embeds and projects into the
+vector and graph stores
+
+:4710-4711 · a port range,
+because it is built to scale" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#191C3D;strokeColor=#818CF8;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="690" y="550" width="280" height="150" as="geometry"/></mxCell><mxCell id="n18" value="Health Service
+
+Currency, snapshots, audit log.
+Judges freshness evidence;
+never fetches it.
+
+:8000 · python · fastapi" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1000" y="550" width="280" height="150" as="geometry"/></mxCell><mxCell id="n19" value="Operator Dashboard
+
+Re-ingest, verify, reconcile,
+withdraw. Writes nothing, and
+ships with no store client.
+
+:3000 · typescript · next.js 16" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0F2340;strokeColor=#60A5FA;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;" vertex="1" parent="1"><mxGeometry x="1310" y="550" width="320" height="150" as="geometry"/></mxCell><mxCell id="n20" value="events.inbound" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=6 5;" edge="1" parent="1" source="n15" target="n16"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n21" value="law.structured" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=6 5;" edge="1" parent="1" source="n16" target="n17"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n22" value="law.embedded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#22D3EE;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;dashed=1;dashPattern=6 5;" edge="1" parent="1" source="n17" target="n16"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n23" value="REST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#60A5FA;strokeWidth=1.4;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n19" target="n18"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n24" value="4 · PERSISTENCE — THREE DATABASES AND ONE OBJECT STORE" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="760" width="1620" height="240" as="geometry"/></mxCell><mxCell id="n25" value="PostgreSQL
+
+Canonical legal state, source
+evidence, assurance, currency —
+four concerns, one database
+
+cannot: search by meaning" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="70" y="810" width="360" height="160" as="geometry"/></mxCell><mxCell id="n26" value="Qdrant
+
+Dense 1024 + sparse vectors in one
+collection, fused server-side
+
+point id = uuid5(ns, chunk_id)
+cannot: follow a citation chain" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="470" y="810" width="360" height="160" as="geometry"/></mxCell><mxCell id="n27" value="Neo4j
+
+The provision reference graph —
+what each provision cites,
+across statutes
+
+MERGE by id · REFERS_TO · CITES_LAW" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="870" y="810" width="360" height="160" as="geometry"/></mxCell><mxCell id="n28" value="MinIO
+
+Publisher bytes, hashed before
+anything parses them, plus an
+object-locked evidence bucket
+
+{eventId}/{filename} · SHA-256" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2B2208;strokeColor=#F0B429;strokeWidth=2;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;shadow=0;" vertex="1" parent="1"><mxGeometry x="1270" y="810" width="360" height="160" as="geometry"/></mxCell><mxCell id="n29" value="exclusive write" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n16" target="n25"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n30" value="currency · audit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n18" target="n25"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n31" value="1st" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n17" target="n26"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n32" value="2nd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n17" target="n27"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n33" value="captures" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n15" target="n28"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n34" value="archive mirror" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F0B429;strokeWidth=2.2;fontColor=#9FB0C3;fontSize=11;fontFamily=Helvetica;labelBackgroundColor=#070A0F;jettySize=auto;orthogonalLoop=1;" edge="1" parent="1" source="n16" target="n28"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="n35" value="5 · DRAWN BECAUSE IT IS ABSENT — RECORDED IN THE REPOSITORY" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#0A0F16;strokeColor=#1C2736;strokeWidth=1;fontColor=#9FB0C3;fontSize=11;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="1030" width="1620" height="190" as="geometry"/></mxCell><mxCell id="n36" value="No dead-letter topic · legal pipeline
+
+A permanently unprocessable law is redelivered
+for ever and blocks its partition until a human
+intervenes. The document pipeline has a DLQ;
+the legal one does not." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;dashed=1;dashPattern=3 3;" vertex="1" parent="1"><mxGeometry x="70" y="1080" width="500" height="120" as="geometry"/></mxCell><mxCell id="n37" value="No monitoring plane in the delivered stack
+
+Prometheus and Alertmanager rules were written
+and promtool-tested, then withdrawn. Nothing in
+the running stack scrapes or alerts." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;dashed=1;dashPattern=3 3;" vertex="1" parent="1"><mxGeometry x="600" y="1080" width="500" height="120" as="geometry"/></mxCell><mxCell id="n38" value="No agentic retrieval graph
+
+A ten-node design exists in the architecture
+material. langgraph is commented out and the
+retrieval package is empty." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2E1416;strokeColor=#F87171;strokeWidth=1;fontColor=#E8EEF6;fontSize=13;align=left;verticalAlign=top;spacing=8;spacingTop=4;fontFamily=Helvetica;dashed=1;dashPattern=3 3;" vertex="1" parent="1"><mxGeometry x="1130" y="1080" width="500" height="120" as="geometry"/></mxCell></root></mxGraphModel></diagram></mxfile>

@@ -22,6 +22,7 @@ import diagrams_a  # noqa: E402
 import diagrams_b  # noqa: E402
 import diagrams_c  # noqa: E402
 import diagrams_d  # noqa: E402
+import diagrams_e  # noqa: E402
 from svg_kit import TextTooWide  # noqa: E402
 
 
@@ -33,7 +34,7 @@ def main() -> int:
         return 2
 
     builders = (diagrams_a.ALL + diagrams_b.ALL + diagrams_c.ALL
-                + diagrams_d.ALL)
+                + diagrams_d.ALL + diagrams_e.ALL)
     print(f"building {len(builders)} diagrams")
     failed = 0
     for fn in builders:
