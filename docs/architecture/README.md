@@ -119,9 +119,12 @@ evidence of weight, not of line ownership.
 
 ## Scope and honesty
 
-- **Production-oriented, not in production.** Only Docker Compose stacks and CI
-  image builds are evidenced. No Kubernetes manifest or cloud infrastructure
-  exists in the repositories.
+- **Deployed to Dev and QA, not to production.** The services ran as pods in the
+  team's Dev and QA clusters, delivered by Argo CD from Kubernetes manifests and
+  CI pipelines I contributed to. Those manifests live in the employer's
+  repositories and are not part of this portfolio, so what *these* repositories
+  evidence is the Docker Compose stacks and the CI image builds. There is no
+  production environment.
 - **No business impact metrics.** None exist in any repository, so none are
   claimed.
 - **The legal pipeline has no dead-letter topic**, no bounded retry and no

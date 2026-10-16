@@ -409,12 +409,17 @@ Six things, and I would lead with the first:
 
 ### Is this in production?
 
-No, and I would not let that be ambiguous. The stack runs under Docker Compose
-with CI-built images, in a lab environment, against the real published corpus.
-There is no Kubernetes manifest and no cloud infrastructure in any of the
-repositories. The design is production-oriented — single-writer ownership,
-idempotent consumption, evidence retention, double-gated lifecycle actions — but
-"production-oriented" is the accurate phrase and "in production" would not be.
+No, and I would not let that be ambiguous. It was deployed as pods to the team's
+Dev and QA clusters by Argo CD, from Kubernetes manifests and CI pipelines I
+contributed to. There is no production environment, so "in production" would not
+be accurate.
+
+Those manifests live in the employer's repositories and are not in this
+portfolio. What you can check here is the Docker Compose stacks and the CI image
+builds, which is what I would point at if you wanted evidence rather than my
+word. The design is production-oriented — single-writer ownership, idempotent
+consumption, evidence retention, double-gated lifecycle actions — and Dev and QA
+is where it actually ran.
 
 ### Do you have business impact numbers?
 

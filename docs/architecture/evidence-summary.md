@@ -130,7 +130,7 @@ tell.
 
 | | |
 |---|---|
-| **Production deployment** | Not claimed. Only Docker Compose stacks and CI image builds are evidenced — no Kubernetes manifest, no cloud infrastructure. The wording used throughout is *production-oriented*. |
+| **Production deployment** | Not claimed — there is no production environment. The services were deployed as pods to the team's **Dev and QA** clusters by **Argo CD**, from Kubernetes manifests and CI pipelines I contributed to; those manifests are in the employer's repositories, not here. What *this* portfolio evidences is the Docker Compose stacks and the CI image builds. |
 | **Business impact metrics** | Not claimed. No repository contains one, so none is stated. |
 | **A GDMS Rule Mapper** | **Excluded.** It was named in the brief for this portfolio. A case-insensitive search of the entire workspace returned two hits, both inside base64-encoded raster images in unrelated files. No repository, topic, consumer, class, configuration or document for it exists. It is not drawn. |
 | **PaddleOCR, DeepSeek-OCR, Redis** | **Excluded.** None appears in any dependency, configuration or source file. |

@@ -120,9 +120,9 @@ of weight, not of authorship — two classifications deliberately disagree with 
 and say so on the
 [contribution diagram](assets/png/12-my-contributions.png).
 
-**Not claimed:** no production deployment (Docker Compose with CI-built images,
-in a lab), no business impact metrics (none exist in any repository), and no EU
-law is certified — the parsers work, the assurance contract for them does not
+**Not claimed:** no production deployment — the services ran as pods in Dev and
+QA, delivered by Argo CD, and there is no production environment; no business
+impact metrics (none exist in any repository); and no EU law is certified — the parsers work, the assurance contract for them does not
 exist yet. The medical-imaging work is a **research prototype**: no medical
 device, no regulatory clearance, no clinical validation or deployment, and no
 accuracy figure is claimed.
