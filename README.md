@@ -1,5 +1,15 @@
 # AI Engineering Systems — architecture case studies
 
+<!-- project-story:start -->
+<p align="center"><img src="docs/assets/architecture-animated.svg" alt="Animated architecture diagram of this project" width="100%"></p>
+
+| Problem | Why it mattered | Result |
+|---|---|---|
+| Workplace architecture is hard to publish honestly. | Any diagram can quietly imply sole authorship. | **22** architecture diagrams, with authorship in four stated classes |
+
+[See it animated on mzquadri.de](https://mzquadri.de/work/ai-engineering-portfolio)
+<!-- project-story:end -->
+
 **Mohd Zamin Quadri · AI Engineer · Munich, Germany**
 
 **[mzquadri.de](https://mzquadri.de)** — the full portfolio: research, selected
