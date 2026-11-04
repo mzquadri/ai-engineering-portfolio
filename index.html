@@ -31,7 +31,7 @@ html[data-theme="light"] {
 }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-html,body { overflow-x:hidden; max-width:100%; }
+html,body { overflow-x:clip; max-width:100%; }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
 body {
   margin:0; background:var(--canvas); color:var(--ink); font-family:var(--sans);
@@ -275,6 +275,67 @@ main { min-width:0; }
       animation-range:cover calc(8% + var(--i) * .9%) cover calc(24% + var(--i) * .9%); }
   }
 }
+
+/* ---- each case study in four steps, flown through on scroll ---- */
+.story { margin:26px 0; }
+.st-stage { padding:0; }
+.st-scene { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));
+  gap:12px; margin:0; padding:0; list-style:none; }
+.st-card { border:1px solid var(--hair); border-radius:12px; padding:20px 22px;
+  background:var(--surface); display:grid; gap:10px; align-content:start; }
+.st-k { margin:0; font-family:var(--mono); font-size:.76rem; color:var(--trust); }
+.st-line { margin:0; font-size:clamp(1.15rem,2.3vw,1.7rem); line-height:1.22; color:var(--ink);
+  font-weight:600; max-width:none; }
+.st-value { margin:0; font-size:clamp(2.2rem,6vw,4.2rem); line-height:1; color:var(--trust);
+  font-weight:700; }
+.st-label { margin:0; color:var(--ink-mid); max-width:36ch; }
+.st-flow, .st-tools, .st-chart { list-style:none; margin:4px 0 0; padding:0; }
+.st-flow { display:flex; flex-wrap:wrap; gap:8px 26px; }
+.st-flow li { position:relative; border:1px solid var(--trust); border-radius:7px;
+  padding:5px 10px; font-size:.85rem; color:var(--ink); }
+.st-flow li + li::before { content:""; position:absolute; top:50%; left:-27px; width:26px;
+  height:1.5px; background:var(--trust); transform-origin:left; }
+.st-chart { display:grid; gap:9px; max-width:34rem; }
+.st-chart li { display:grid; grid-template-columns:1fr auto; gap:3px 12px; font-size:.86rem;
+  color:var(--ink-mid); }
+.st-chart b { color:var(--ink); }
+.st-chart i { grid-column:1/-1; width:var(--size); height:8px; border-radius:3px;
+  background:var(--trust); transform-origin:left; }
+.st-tools { display:flex; flex-wrap:wrap; gap:8px; }
+.st-tools li { border:1px solid var(--hair); border-radius:99px; padding:6px 13px;
+  color:var(--ink); font-size:.95rem; }
+@keyframes st-near { from { opacity:1; transform:translate3d(0,0,0); }
+  to { opacity:0; transform:translate3d(0,0,320px); } }
+@keyframes st-mid { from { opacity:0; transform:translate3d(0,0,-500px); }
+  32%,68% { opacity:1; transform:translate3d(0,0,0); }
+  to { opacity:0; transform:translate3d(0,0,320px); } }
+@keyframes st-far { from { opacity:0; transform:translate3d(0,0,-500px); }
+  to { opacity:1; transform:translate3d(0,0,0); } }
+@keyframes st-grow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+@keyframes st-pop { from { opacity:.15; transform:scale(.9); } to { opacity:1; transform:none; } }
+@supports (animation-timeline:view()) {
+  @media (prefers-reduced-motion:no-preference) {
+    .story { height:380vh; margin:0; view-timeline:--st block; }
+    .st-stage { position:sticky; top:0; height:100vh; height:100svh; display:grid;
+      place-items:center; overflow:hidden; perspective:900px; }
+    .st-scene { display:grid; width:100%; grid-template-columns:minmax(0,1fr);
+      transform-style:preserve-3d; }
+    .st-card { grid-area:1/1; border:0; background:transparent;
+      animation-timing-function:linear; animation-fill-mode:both; animation-timeline:--st; }
+    .st-card[data-step="1"] { animation-name:st-near; animation-range:contain 4% contain 24%; }
+    .st-card[data-step="2"] { animation-name:st-mid; animation-range:contain 10% contain 50%; }
+    .st-card[data-step="3"] { animation-name:st-mid; animation-range:contain 38% contain 78%; }
+    .st-card[data-step="4"] { animation-name:st-far; animation-range:contain 66% contain 92%; }
+    .st-flow li { animation:st-pop linear both; animation-timeline:--st;
+      animation-range:contain calc(20% + var(--i) * 3%) contain calc(25% + var(--i) * 3%); }
+    .st-flow li + li::before { animation:st-grow linear both; animation-timeline:--st;
+      animation-range:contain calc(18% + var(--i) * 3%) contain calc(21% + var(--i) * 3%); }
+    .st-chart i { animation:st-grow linear both; animation-timeline:--st;
+      animation-range:contain calc(46% + var(--i) * 3%) contain calc(56% + var(--i) * 3%); }
+    .st-tools li { animation:st-pop linear both; animation-timeline:--st;
+      animation-range:contain calc(74% + var(--i) * 2%) contain calc(80% + var(--i) * 2%); }
+  }
+}
 </style>
 </head>
 <body>
@@ -423,6 +484,12 @@ searchable, but makes claims about that information falsifiable.</p>
 </section>
 <section id="legal" class="sec is-interview">
 <h2>The Legal Knowledge Database</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">Published law is not ready for machines to query.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">Five services turn each law into verified records, vectors and a graph.</p><ol class="st-flow"><li style="--i:0">Capture</li><li style="--i:1">Structure</li><li style="--i:2">Project</li><li style="--i:3">Verify</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">4 of 5</p><p class="st-label">services implemented by me</p><ul class="st-chart"><li style="--i:0;--size:80%"><span>Services I built</span><b>4</b><i></i></li><li style="--i:1;--size:100%"><span>All services</span><b>5</b><i></i></li></ul></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">Kafka</li><li style="--i:1">PostgreSQL</li><li style="--i:2">Qdrant</li><li style="--i:3">Neo4j</li><li style="--i:4">MinIO</li></ul></li>
+</ol></div></div>
 <p class="lede">Five services in two groups — a three-stage ingestion
 pipeline and a two-part control plane — over three Kafka topics and four
 stores, with one rule that makes the whole thing verifiable: exactly one service
@@ -510,6 +577,12 @@ redelivery is safe rather than dangerous.</p>
 </section>
 <section id="trust" class="sec is-interview">
 <h2>Can we trust what is being served?</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">One green badge can hide a wrong answer.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">Fourteen gates check each German law and report four separate statuses.</p><ol class="st-flow"><li style="--i:0">Gates</li><li style="--i:1">Statuses</li><li style="--i:2">Human review</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">14</p><p class="st-label">gates on every German law</p><ul class="st-chart"><li style="--i:0;--size:50%"><span>Required</span><b>7</b><i></i></li><li style="--i:1;--size:50%"><span>Recorded and shown</span><b>7</b><i></i></li></ul></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">PostgreSQL</li><li style="--i:1">Qdrant</li><li style="--i:2">Neo4j</li></ul></li>
+</ol></div></div>
 <p class="lede">The system answers that with fourteen gates and four separate
 statuses, and it deliberately refuses to answer it with one badge.</p>
 <p>Seven gates are required for the aggregate the dashboard shows; the other
@@ -554,6 +627,12 @@ legal review. No law in the corpus claims to be human-certified.</p>
 </section>
 <section id="query" class="sec is-interview">
 <h2>The query path</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">Meaning and exact citations need different kinds of search.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">One model pass gives dense and sparse vectors, and Qdrant fuses them.</p><ol class="st-flow"><li style="--i:0">Question</li><li style="--i:1">BGE-M3</li><li style="--i:2">Dense and sparse</li><li style="--i:3">Fusion</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">8192</p><p class="st-label">token limit enforced, text is never silently cut</p></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">BGE-M3</li><li style="--i:1">Qdrant</li><li style="--i:2">Reciprocal rank fusion</li></ul></li>
+</ol></div></div>
 <p class="lede">Deliberately separate from the ingestion path. Nothing here
 writes a store, and nothing here parses a law.</p>
 <figure class="fig" data-diagram="07-rag-query-flow">
@@ -616,6 +695,12 @@ untrue.</p>
 </section>
 <section id="documents" class="sec">
 <h2>Insurance document AI</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">Insurance paperwork arrives as messy PDFs.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">OCR reads each page, then a language model fills a reviewable template.</p><ol class="st-flow"><li style="--i:0">PDF</li><li style="--i:1">OCR</li><li style="--i:2">Template</li><li style="--i:3">Fields</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">6</p><p class="st-label">document templates define the output</p></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">Docling OCR</li><li style="--i:1">LLM extraction</li><li style="--i:2">Declarative templates</li><li style="--i:3">Kafka</li></ul></li>
+</ol></div></div>
 <p class="lede">A template is the extraction contract, not the model. That is
 what lets the model change without the pipeline changing.</p>
 <figure class="fig" data-diagram="10-insurance-document-ai">
@@ -634,6 +719,12 @@ knows insurance but not Python, and carried between models without retraining.</
 </section>
 <section id="radiology" class="sec is-interview">
 <h2>Multi-label chest X-ray classification</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">One global cut-off would be wrong for every finding.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">Each finding gets its own threshold and an attribution map.</p><ol class="st-flow"><li style="--i:0">X-ray</li><li style="--i:1">Model</li><li style="--i:2">Thresholds</li><li style="--i:3">Grad-CAM++</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">5</p><p class="st-label">findings. Research prototype only, not a medical device</p><ul class="st-chart"><li style="--i:0;--size:13%"><span>Cardiomegaly threshold</span><b>0.130</b><i></i></li><li style="--i:1;--size:42%"><span>Effusion threshold</span><b>0.424</b><i></i></li></ul></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">PyTorch</li><li style="--i:1">DenseNet-121</li><li style="--i:2">Grad-CAM++</li><li style="--i:3">Kafka</li></ul></li>
+</ol></div></div>
 <p class="lede">A research/prototype medical-imaging classification pipeline —
 internally named &ldquo;AI Radiologist&rdquo;. Five findings, one calibrated
 decision threshold each, and a Grad-CAM++ attribution map.</p>
@@ -678,6 +769,12 @@ claim that either was built with the other in mind.</p>
 </section>
 <section id="compliance" class="sec is-interview">
 <h2>AI Compliance — what the corpus is for</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">A wrong citation makes a compliance report confidently wrong.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">Questionnaire answers are read together with the verified legal corpus.</p><ol class="st-flow"><li style="--i:0">Questionnaire</li><li style="--i:1">Website scan</li><li style="--i:2">Knowledge processor</li><li style="--i:3">PDF report</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">Shared</p><p class="st-label">built by colleagues, reaching the corpus through my ingestion path</p></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">Headless browser</li><li style="--i:1">Legal corpus</li><li style="--i:2">PDF reports</li></ul></li>
+</ol></div></div>
 <p class="lede">The customer-facing assessment product. It is the reason the
 Legal Knowledge Database has to be verifiable rather than merely searchable.</p>
 <p>A customer works through a structured questionnaire; a headless browser
@@ -712,6 +809,12 @@ rather than claimed.</p>
 </section>
 <section id="events" class="sec">
 <h2>Ten topics, two pipelines, one broker</h2>
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">Documents must move between services with no shared transaction.</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">Services pass events through one broker, built so redelivery is harmless.</p><ol class="st-flow"><li style="--i:0">Produce</li><li style="--i:1">Broker</li><li style="--i:2">Consume</li></ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">10</p><p class="st-label">topics across two pipelines</p></li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools"><li style="--i:0">Apache Kafka</li></ul></li>
+</ol></div></div>
 <p class="lede">Exact topic names, their producers and their consumers — and the
 places where the two pipelines differ in maturity.</p>
 <figure class="fig" data-diagram="11-event-driven-pipelines">
@@ -1147,7 +1250,7 @@ document.querySelectorAll('.fig-frame').forEach(function (frame) {
   [].slice.call(document.querySelectorAll('section.sec')).forEach(function (sec) {
     var kids = [].slice.call(sec.children), keptIntro = false, rest = [];
     kids.forEach(function (el) {
-      if (el.tagName === 'H2' || el.classList.contains('fig')) return;
+      if (el.tagName === 'H2' || el.classList.contains('fig') || el.classList.contains('story')) return;
       if (!keptIntro && el.tagName === 'P') { keptIntro = true; return; }
       rest.push(el);
     });

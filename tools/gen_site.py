@@ -12,6 +12,7 @@ rule instead of a second set of artwork.
 from __future__ import annotations
 
 import pathlib
+from html import escape
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -40,8 +41,74 @@ def svg(name: str, *, caption: str = "", figno: str = "") -> str:
 SECTIONS: list[tuple[str, str, str]] = []
 
 
+STORIES = {
+    "legal": ("Published law is not ready for machines to query.",
+              "Five services turn each law into verified records, vectors and a graph.",
+              ["Capture", "Structure", "Project", "Verify"],
+              ("4 of 5", "services implemented by me"),
+              [("Services I built", "4", 80), ("All services", "5", 100)],
+              ["Kafka", "PostgreSQL", "Qdrant", "Neo4j", "MinIO"]),
+    "trust": ("One green badge can hide a wrong answer.",
+              "Fourteen gates check each German law and report four separate statuses.",
+              ["Gates", "Statuses", "Human review"],
+              ("14", "gates on every German law"),
+              [("Required", "7", 50), ("Recorded and shown", "7", 50)],
+              ["PostgreSQL", "Qdrant", "Neo4j"]),
+    "query": ("Meaning and exact citations need different kinds of search.",
+              "One model pass gives dense and sparse vectors, and Qdrant fuses them.",
+              ["Question", "BGE-M3", "Dense and sparse", "Fusion"],
+              ("8192", "token limit enforced, text is never silently cut"),
+              [],
+              ["BGE-M3", "Qdrant", "Reciprocal rank fusion"]),
+    "documents": ("Insurance paperwork arrives as messy PDFs.",
+                  "OCR reads each page, then a language model fills a reviewable template.",
+                  ["PDF", "OCR", "Template", "Fields"],
+                  ("6", "document templates define the output"),
+                  [],
+                  ["Docling OCR", "LLM extraction", "Declarative templates", "Kafka"]),
+    "radiology": ("One global cut-off would be wrong for every finding.",
+                  "Each finding gets its own threshold and an attribution map.",
+                  ["X-ray", "Model", "Thresholds", "Grad-CAM++"],
+                  ("5", "findings. Research prototype only, not a medical device"),
+                  [("Cardiomegaly threshold", "0.130", 13), ("Effusion threshold", "0.424", 42)],
+                  ["PyTorch", "DenseNet-121", "Grad-CAM++", "Kafka"]),
+    "compliance": ("A wrong citation makes a compliance report confidently wrong.",
+                   "Questionnaire answers are read together with the verified legal corpus.",
+                   ["Questionnaire", "Website scan", "Knowledge processor", "PDF report"],
+                   ("Shared", "built by colleagues, reaching the corpus through my ingestion path"),
+                   [],
+                   ["Headless browser", "Legal corpus", "PDF reports"]),
+    "events": ("Documents must move between services with no shared transaction.",
+               "Services pass events through one broker, built so redelivery is harmless.",
+               ["Produce", "Broker", "Consume"],
+               ("10", "topics across two pipelines"),
+               [],
+               ["Apache Kafka"]),
+}
+
+
+def story_html(sid: str) -> str:
+    """The section in four short steps. Every figure is already published further down the page."""
+    if sid not in STORIES:
+        return ""
+    problem, how, flow, (value, label), chart, tools = STORIES[sid]
+    steps = "".join(f'<li style="--i:{i}">{escape(x)}</li>' for i, x in enumerate(flow))
+    bars = "".join(
+        f'<li style="--i:{i};--size:{n}%"><span>{escape(a)}</span><b>{escape(b)}</b><i></i></li>'
+        for i, (a, b, n) in enumerate(chart))
+    chips = "".join(f'<li style="--i:{i}">{escape(x)}</li>' for i, x in enumerate(tools))
+    chart_html = f'<ul class="st-chart">{bars}</ul>' if chart else ""
+    return f"""
+<div class="story"><div class="st-stage"><ol class="st-scene">
+<li class="st-card" data-step="1"><p class="st-k">Problem</p><p class="st-line">{escape(problem)}</p></li>
+<li class="st-card" data-step="2"><p class="st-k">How it was solved</p><p class="st-line">{escape(how)}</p><ol class="st-flow">{steps}</ol></li>
+<li class="st-card" data-step="3"><p class="st-k">Result</p><p class="st-value">{escape(value)}</p><p class="st-label">{escape(label)}</p>{chart_html}</li>
+<li class="st-card" data-step="4"><p class="st-k">Built with</p><ul class="st-tools">{chips}</ul></li>
+</ol></div></div>"""
+
+
 def section(sid: str, nav: str, html: str, *, interview: bool = False) -> None:
-    SECTIONS.append((sid, nav, html))
+    SECTIONS.append((sid, nav, html.replace("</h2>", "</h2>" + story_html(sid), 1)))
     if interview:
         INTERVIEW.append(sid)
 
@@ -644,7 +711,7 @@ html[data-theme="light"] {{
 }}
 * {{ box-sizing:border-box; }}
 html {{ scroll-behavior:smooth; }}
-html,body {{ overflow-x:hidden; max-width:100%; }}
+html,body {{ overflow-x:clip; max-width:100%; }}
 @media (prefers-reduced-motion:reduce) {{ html {{ scroll-behavior:auto; }} }}
 body {{
   margin:0; background:var(--canvas); color:var(--ink); font-family:var(--sans);
@@ -888,6 +955,67 @@ main {{ min-width:0; }}
       animation-range:cover calc(8% + var(--i) * .9%) cover calc(24% + var(--i) * .9%); }}
   }}
 }}
+
+/* ---- each case study in four steps, flown through on scroll ---- */
+.story {{ margin:26px 0; }}
+.st-stage {{ padding:0; }}
+.st-scene {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));
+  gap:12px; margin:0; padding:0; list-style:none; }}
+.st-card {{ border:1px solid var(--hair); border-radius:12px; padding:20px 22px;
+  background:var(--surface); display:grid; gap:10px; align-content:start; }}
+.st-k {{ margin:0; font-family:var(--mono); font-size:.76rem; color:var(--trust); }}
+.st-line {{ margin:0; font-size:clamp(1.15rem,2.3vw,1.7rem); line-height:1.22; color:var(--ink);
+  font-weight:600; max-width:none; }}
+.st-value {{ margin:0; font-size:clamp(2.2rem,6vw,4.2rem); line-height:1; color:var(--trust);
+  font-weight:700; }}
+.st-label {{ margin:0; color:var(--ink-mid); max-width:36ch; }}
+.st-flow, .st-tools, .st-chart {{ list-style:none; margin:4px 0 0; padding:0; }}
+.st-flow {{ display:flex; flex-wrap:wrap; gap:8px 26px; }}
+.st-flow li {{ position:relative; border:1px solid var(--trust); border-radius:7px;
+  padding:5px 10px; font-size:.85rem; color:var(--ink); }}
+.st-flow li + li::before {{ content:""; position:absolute; top:50%; left:-27px; width:26px;
+  height:1.5px; background:var(--trust); transform-origin:left; }}
+.st-chart {{ display:grid; gap:9px; max-width:34rem; }}
+.st-chart li {{ display:grid; grid-template-columns:1fr auto; gap:3px 12px; font-size:.86rem;
+  color:var(--ink-mid); }}
+.st-chart b {{ color:var(--ink); }}
+.st-chart i {{ grid-column:1/-1; width:var(--size); height:8px; border-radius:3px;
+  background:var(--trust); transform-origin:left; }}
+.st-tools {{ display:flex; flex-wrap:wrap; gap:8px; }}
+.st-tools li {{ border:1px solid var(--hair); border-radius:99px; padding:6px 13px;
+  color:var(--ink); font-size:.95rem; }}
+@keyframes st-near {{ from {{ opacity:1; transform:translate3d(0,0,0); }}
+  to {{ opacity:0; transform:translate3d(0,0,320px); }} }}
+@keyframes st-mid {{ from {{ opacity:0; transform:translate3d(0,0,-500px); }}
+  32%,68% {{ opacity:1; transform:translate3d(0,0,0); }}
+  to {{ opacity:0; transform:translate3d(0,0,320px); }} }}
+@keyframes st-far {{ from {{ opacity:0; transform:translate3d(0,0,-500px); }}
+  to {{ opacity:1; transform:translate3d(0,0,0); }} }}
+@keyframes st-grow {{ from {{ transform:scaleX(0); }} to {{ transform:scaleX(1); }} }}
+@keyframes st-pop {{ from {{ opacity:.15; transform:scale(.9); }} to {{ opacity:1; transform:none; }} }}
+@supports (animation-timeline:view()) {{
+  @media (prefers-reduced-motion:no-preference) {{
+    .story {{ height:380vh; margin:0; view-timeline:--st block; }}
+    .st-stage {{ position:sticky; top:0; height:100vh; height:100svh; display:grid;
+      place-items:center; overflow:hidden; perspective:900px; }}
+    .st-scene {{ display:grid; width:100%; grid-template-columns:minmax(0,1fr);
+      transform-style:preserve-3d; }}
+    .st-card {{ grid-area:1/1; border:0; background:transparent;
+      animation-timing-function:linear; animation-fill-mode:both; animation-timeline:--st; }}
+    .st-card[data-step="1"] {{ animation-name:st-near; animation-range:contain 4% contain 24%; }}
+    .st-card[data-step="2"] {{ animation-name:st-mid; animation-range:contain 10% contain 50%; }}
+    .st-card[data-step="3"] {{ animation-name:st-mid; animation-range:contain 38% contain 78%; }}
+    .st-card[data-step="4"] {{ animation-name:st-far; animation-range:contain 66% contain 92%; }}
+    .st-flow li {{ animation:st-pop linear both; animation-timeline:--st;
+      animation-range:contain calc(20% + var(--i) * 3%) contain calc(25% + var(--i) * 3%); }}
+    .st-flow li + li::before {{ animation:st-grow linear both; animation-timeline:--st;
+      animation-range:contain calc(18% + var(--i) * 3%) contain calc(21% + var(--i) * 3%); }}
+    .st-chart i {{ animation:st-grow linear both; animation-timeline:--st;
+      animation-range:contain calc(46% + var(--i) * 3%) contain calc(56% + var(--i) * 3%); }}
+    .st-tools li {{ animation:st-pop linear both; animation-timeline:--st;
+      animation-range:contain calc(74% + var(--i) * 2%) contain calc(80% + var(--i) * 2%); }}
+  }}
+}}
 </style>
 </head>
 <body>
@@ -1112,7 +1240,7 @@ document.querySelectorAll('.fig-frame').forEach(function (frame) {{
   [].slice.call(document.querySelectorAll('section.sec')).forEach(function (sec) {{
     var kids = [].slice.call(sec.children), keptIntro = false, rest = [];
     kids.forEach(function (el) {{
-      if (el.tagName === 'H2' || el.classList.contains('fig')) return;
+      if (el.tagName === 'H2' || el.classList.contains('fig') || el.classList.contains('story')) return;
       if (!keptIntro && el.tagName === 'P') {{ keptIntro = true; return; }}
       rest.push(el);
     }});
