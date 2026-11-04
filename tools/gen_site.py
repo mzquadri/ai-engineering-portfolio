@@ -851,6 +851,43 @@ main {{ min-width:0; }}
   .rec-body {{ grid-template-columns:1fr; gap:2px 0; }}
   .rec-body dt {{ margin-top:8px; }}
 }}
+
+/* ---- every diagram draws itself: lines by scroll, data and nodes on a clock ---- */
+.fig {{ view-timeline:--fig block; }}
+.more {{ margin:18px 0 0; }}
+.more > summary {{ cursor:pointer; color:var(--trust); font-size:.9rem;
+  width:fit-content; }}
+.a-pulse {{ opacity:0; pointer-events:none; }}
+@keyframes a-draw {{ from {{ stroke-dashoffset:100; }} to {{ stroke-dashoffset:0; }} }}
+@keyframes a-rise {{ from {{ opacity:.12; }} to {{ opacity:1; }} }}
+@keyframes a-dolly {{ from {{ opacity:.3;
+  transform:perspective(1100px) translate3d(0,24px,-120px) rotateX(8deg); }}
+  to {{ opacity:1; transform:perspective(1100px) translate3d(0,0,0) rotateX(0); }} }}
+@keyframes a-run {{ 0% {{ offset-distance:0%; opacity:0; }} 8%,86% {{ opacity:1; }}
+  100% {{ offset-distance:100%; opacity:0; }} }}
+@keyframes a-lit {{ 0%,100% {{ filter:none; }}
+  50% {{ filter:drop-shadow(0 0 10px rgba(34,211,238,.75)); }} }}
+@media (prefers-reduced-motion:no-preference) {{
+  .fig.in .a-pulse {{ animation:a-run 3.2s linear infinite;
+    animation-delay:calc(var(--i) * 240ms); }}
+  .fig.in .a-node {{ animation:a-lit 4s ease-in-out infinite;
+    animation-delay:calc(var(--i) * 320ms); }}
+  .fig.in .fig-frame {{ animation:a-dolly 800ms cubic-bezier(.16,1,.3,1) backwards; }}
+  .fig.in .a-edge {{ stroke-dasharray:100; animation:a-draw 1200ms ease-out backwards;
+    animation-delay:calc(var(--i) * 70ms); }}
+  @supports (animation-timeline:view()) {{
+    .fig-frame {{ animation:a-dolly linear both; animation-timeline:--fig;
+      animation-range:entry 0% cover 34%; }}
+    .fig.in .fig-frame {{ animation:a-dolly linear both; animation-timeline:--fig;
+      animation-range:entry 0% cover 34%; }}
+    .a-edge {{ stroke-dasharray:100; }}
+    .fig .a-edge, .fig.in .a-edge {{ animation:a-draw linear both; animation-delay:0s;
+      animation-timeline:--fig;
+      animation-range:cover calc(12% + var(--i) * 1.1%) cover calc(30% + var(--i) * 1.1%); }}
+    .a-rise {{ animation:a-rise linear both; animation-timeline:--fig;
+      animation-range:cover calc(8% + var(--i) * .9%) cover calc(24% + var(--i) * .9%); }}
+  }}
+}}
 </style>
 </head>
 <body>
@@ -1065,6 +1102,64 @@ document.querySelectorAll('.fig-frame').forEach(function (frame) {{
     if (e.key === 'ArrowLeft') {{ i = Math.max(0, i - 1); show(); }}
     if (e.key === 'Escape') exit();
   }});
+}})();
+
+/* ---- bring each diagram to life, and put the long text behind a choice ---- */
+(function () {{
+  var calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  [].slice.call(document.querySelectorAll('section.sec')).forEach(function (sec) {{
+    var kids = [].slice.call(sec.children), keptIntro = false, rest = [];
+    kids.forEach(function (el) {{
+      if (el.tagName === 'H2' || el.classList.contains('fig')) return;
+      if (!keptIntro && el.tagName === 'P') {{ keptIntro = true; return; }}
+      rest.push(el);
+    }});
+    if (rest.length < 1) return;
+    var more = document.createElement('details');
+    more.className = 'more';
+    var label = document.createElement('summary');
+    label.textContent = 'Read the detail';
+    more.appendChild(label);
+    rest.forEach(function (el) {{ more.appendChild(el); }});
+    sec.appendChild(more);
+  }});
+
+  if (calm) return;
+
+  var figs = [].slice.call(document.querySelectorAll('figure.fig'));
+  figs.forEach(function (fig) {{
+    var svg = fig.querySelector('svg');
+    if (!svg) return;
+    [].slice.call(svg.querySelectorAll('g[data-name^="edge:"]')).forEach(function (g, i) {{
+      var path = g.querySelector('path');
+      if (!path) return;
+      var d = path.getAttribute('d');
+      var dashed = path.hasAttribute('stroke-dasharray');
+      g.style.setProperty('--i', i);
+      if (!dashed) {{
+        path.setAttribute('pathLength', '100');
+        path.classList.add('a-edge');
+      }}
+      var dot = document.createElementNS(NS, 'circle');
+      dot.setAttribute('r', '6');
+      dot.setAttribute('class', 'a-pulse');
+      dot.setAttribute('fill', '#67E8F9');
+      dot.style.offsetPath = 'path("' + d + '")';
+      g.appendChild(dot);
+    }});
+    var nodes = 'g[data-name^="card:"],g[data-name^="store:"],g[data-name^="topic:"],g[data-name^="step:"]';
+    [].slice.call(svg.querySelectorAll(nodes)).forEach(function (g, i) {{
+      g.classList.add('a-node', 'a-rise');
+      g.style.setProperty('--i', i);
+    }});
+  }});
+
+  var seen = new IntersectionObserver(function (entries) {{
+    entries.forEach(function (en) {{ en.target.classList.toggle('in', en.isIntersecting); }});
+  }}, {{ threshold: 0.12 }});
+  figs.forEach(function (fig) {{ seen.observe(fig); }});
 }})();
 </script>
 </body>
