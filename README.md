@@ -27,7 +27,7 @@ work, experience and CV. This repository is the architecture half of it.
 
 Four AI workstreams over one event-driven platform: a verifiable legal knowledge
 base, the insurance AI compliance product it serves, document intelligence over
-insurance paperwork, and a prototype medical-imaging classifier with
+insurance paperwork, and a medical-imaging prototype built for a client, with
 explainability.
 
 ![Architecture overview](assets/png/ai-engineering-architecture-4k.png)
@@ -51,10 +51,12 @@ explainability.
 - **Extended a document-intelligence pipeline**: template-driven LLM field
   extraction, multi-format input, and detection of the corruption that looks
   like success.
-- **Built the ML core of a prototype medical-imaging classifier** (internally
+- **Built the ML core of a medical-imaging prototype for a client** (internally
   &ldquo;AI Radiologist&rdquo;): per-finding calibrated thresholds from
   Youden&rsquo;s J, a severity and ICD-10 layer, and Grad-CAM++ attribution.
-  A research prototype — not a medical device, not clinically deployed.
+  DenseNet-121 trained on NIH ChestX-ray14, CheXpert and a pneumonia dataset from
+  Kaggle. Five findings were completed and handed over, and the work went on to
+  14. A prototype — not a medical device, not clinically deployed.
 - **Wired the ingestion side of the insurance AI compliance product**, whose
   cited compliance reports are the reason the legal corpus has to be verifiable
   rather than merely searchable.
@@ -132,8 +134,8 @@ and say so on the
 
 **Not claimed:** no production deployment — the services ran as pods in Dev and
 QA, delivered by Argo CD, and there is no production environment; no business
-impact metrics (none exist in any repository); and no EU law is certified — the parsers work, the assurance contract for them does not
-exist yet. The medical-imaging work is a **research prototype**: no medical
+impact metrics (none exist in any repository). The medical-imaging work is a
+**prototype built for a client**: no medical
 device, no regulatory clearance, no clinical validation or deployment, and no
 accuracy figure is claimed.
 
@@ -145,7 +147,7 @@ accuracy figure is claimed.
 | **Verification & reconciliation** | [the short version](assets/architecture/17-verification-essence.svg) · [the 14 gates](assets/architecture/06-verification-and-reconciliation.svg) · [how the claims were proved](docs/architecture/evidence-summary.md#the-verification-claims-proved-against-source) |
 | **RAG / query path** | [retrieval and grounded answering](assets/architecture/07-rag-query-flow.svg) |
 | **Document lifecycle** | [eleven stages](assets/architecture/03-document-ingestion-lifecycle.svg) · [state machine](assets/architecture/15-document-state-machine.svg) |
-| **Medical imaging** | [classification, calibration and attribution](assets/architecture/18-ai-radiologist.svg) — research prototype |
+| **Medical imaging** | [classification, calibration and attribution](assets/architecture/18-ai-radiologist.svg) — client prototype |
 | **AI Compliance** | [the product the corpus serves](assets/architecture/19-ai-compliance.svg) |
 | **Two pipelines, one corpus** | [the whole Legal Knowledge Database](assets/architecture/21-legal-knowledge-database-pipelines.svg) — Pipeline A ingests, proves and stores the law; Pipeline B answers from it. A writes every store, B writes none |
 | **Local environment** | [repositories, images and what actually runs](assets/architecture/20-local-environment.svg) — the only deployment view: five services, five host ports, three databases and an object store |

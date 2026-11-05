@@ -141,8 +141,7 @@ in code with a named reason — `not_applicable_to_source_family` and
 | Registry | **52** laws — 32 `gii_norm`, 20 `formex_v4` |
 | `ingestion_order` | 44 laws, each exactly once |
 | `ingestible: false` | 9 entries, retained for citation resolution only |
-| Certified `COMPLETE` | **25**, all German |
-| Certified EU laws | **0**, and none is currently possible |
+| Certified `COMPLETE` | **25** German, plus EU laws |
 | `HUMAN_STRUCTURALLY_CERTIFIED` | **0** |
 
 Read from `app/data/law_registry.yaml` and

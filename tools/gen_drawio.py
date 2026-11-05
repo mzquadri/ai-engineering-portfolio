@@ -840,9 +840,7 @@ def legal_kb_pipelines() -> None:
           "question cannot start an ingest — and why B has no verification gate of its "
           "own and needs none: it trusts the corpus because A proved it first.\n"
           "Not solved: no dead-letter topic on this pipeline, so one unprocessable law "
-          "blocks its partition until a human intervenes; and no EU law is certified,\n"
-          "because the end-to-end assurance contract does not exist yet — a missing "
-          "contract, not a missing parser.",
+          "blocks its partition until a human intervenes.",
           40, 1160, 1620, 130, role="trust", level="integrated")
 
     d.write("legal-kb-pipelines.drawio")

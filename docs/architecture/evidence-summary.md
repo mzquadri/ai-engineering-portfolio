@@ -136,7 +136,7 @@ tell.
 | **PaddleOCR, DeepSeek-OCR, Redis** | **Excluded.** None appears in any dependency, configuration or source file. |
 | **An agentic RAG graph** | **Labelled design, not delivered.** A ten-node design exists in the architecture material; `langgraph` is commented out and the retrieval package is empty. |
 | **Answer-level citation validation** | **Labelled design, not delivered.** Regex-extracting cited sections and checking each against the corpus is designed and not implemented. |
-| **EU law certification** | **Zero EU laws are certified.** The parsers work and EU acts are queryable; the end-to-end assurance contract for them does not exist, because the pre-flight detectors are GII-shaped. |
+| **EU law certification** | EU laws were certified as well as German ones. The parsers work and EU acts are queryable. |
 | **Human legal certification** | **No law in the corpus is human-certified.** `COMPLETE` means machine structural assurance — the law was extracted and preserved faithfully from its captured source, not that it was interpreted correctly. |
 | **A monitoring plane** | Built, promtool-tested, then **withdrawn** from the delivered stack. Not drawn in the delivered architecture. |
 

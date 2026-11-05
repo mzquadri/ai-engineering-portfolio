@@ -41,12 +41,12 @@ FINDINGS = [
 # ===========================================================================
 def d18_radiologist() -> None:
     c = Canvas(1920, 1500,
-               eyebrow="Computer vision · research prototype",
+               eyebrow="Computer vision · client prototype",
                title="Multi-label chest X-ray classification with "
                      "explainability",
                subtitle="Internal project name: “AI Radiologist”. A "
-                         "research/prototype medical-imaging classification "
-                         "pipeline — not a medical device and not clinically "
+                         "medical-imaging prototype built for a client — not "
+                         "a medical device and not clinically "
                          "deployed. Five findings, one calibrated threshold "
                          "each, and a Grad-CAM++ attribution map.")
     c.background()
@@ -165,7 +165,7 @@ def d18_radiologist() -> None:
                "thing it checks cannot falsify it. That parallel is my own "
                "framing across two codebases, not a claim that either was built "
                "with the other in mind.",
-               "Stated plainly: a research/prototype classification pipeline with "
+               "Stated plainly: a prototype classification pipeline built for a client, with "
                "explainability and calibrated thresholds. Not a medical device, "
                "not clinically validated or deployed, no regulatory clearance, "
                "and no accuracy figure is claimed anywhere in this portfolio."],

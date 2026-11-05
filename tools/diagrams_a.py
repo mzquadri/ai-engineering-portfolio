@@ -154,7 +154,7 @@ def d01_landscape() -> None:
                meta=["ai-contract-data"])
     lane_around(c, [clf, cam, sev, syn],
                 "D \u00b7 Medical-imaging classification + test data",
-                caption="research prototype \u00b7 extended by me",
+                caption="client prototype \u00b7 extended by me",
                 accent="trust")
 
     # ---------------- shared platform

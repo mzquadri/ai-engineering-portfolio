@@ -109,8 +109,10 @@ Then the honest limit, unprompted — it lands better volunteered:
 
 ### `18-ai-radiologist` — the breadth answer
 
-> Five findings, multi-label, sigmoid per class — a study can show several at
-> once. Each finding has its own decision threshold, calibrated with Youden's J
+> A prototype built for a client. Five findings were completed and handed over,
+> and the work went on to 14, trained on NIH ChestX-ray14, CheXpert and a
+> pneumonia dataset from Kaggle. Multi-label, sigmoid per class — a study can show
+> several at once. Each finding has its own decision threshold, calibrated with Youden's J
 > on a validation set, which is why they differ so much: cardiomegaly is
 > positive at 0.130, effusion only at 0.424. A single global cut-off would have
 > been wrong for every class.
@@ -167,8 +169,7 @@ Getting one of these wrong is worse than not knowing it.
 | Gates required for the badge | **7** |
 | Gates applicable to a German law / an EU law | **14 / 12** |
 | Laws in the registry | **52** — 32 German, 20 EU |
-| Laws certified `COMPLETE` | **25**, all German |
-| EU laws certified | **0** |
+| Laws certified `COMPLETE` | **25** German, plus EU laws |
 | Laws human-certified | **0** |
 | Kafka topics, legal / document | **3 / 7** (10 total) |
 | Stores | **4** — PostgreSQL, Qdrant, Neo4j, MinIO |
@@ -203,8 +204,8 @@ assume the hard part was prompting.
 
 - "I built the platform." Four of five services, and the platform is bigger
   than the Legal Knowledge Database.
-- "We verify everything." Seven of fourteen gates are badge-required, no EU law
-  is certified, and a count matching is not proof.
+- "We verify everything." Seven of fourteen gates are badge-required, and a
+  count matching is not proof.
 - "It's fully automated." Nothing self-heals, deliberately. Lifecycle actions are
   operator decisions behind two flags.
 - Any number you are not sure of. Say "I'd have to check the ledger" — the
