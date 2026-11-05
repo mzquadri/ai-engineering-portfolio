@@ -169,7 +169,7 @@ Getting one of these wrong is worse than not knowing it.
 | Gates required for the badge | **7** |
 | Gates applicable to a German law / an EU law | **14 / 12** |
 | Laws in the registry | **52** — 32 German, 20 EU |
-| Laws certified `COMPLETE` | **25** German, plus EU laws |
+| Laws certified `COMPLETE` | **52** — 32 German, 20 EU |
 | Laws human-certified | **0** |
 | Kafka topics, legal / document | **3 / 7** (10 total) |
 | Stores | **4** — PostgreSQL, Qdrant, Neo4j, MinIO |
@@ -190,7 +190,7 @@ production-oriented; the deployment is not production. Say it flatly and move
 on; hedging here is what damages credibility.
 
 **"What was the business impact?"** — No repository contains a metric of that
-kind and I will not invent one. Then redirect to what is measurable: 25 laws
+kind and I will not invent one. Then redirect to what is measurable: 52 laws
 certified against their own publisher sources, 14 gates, four stores with one
 writer each.
 

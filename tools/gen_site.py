@@ -145,8 +145,8 @@ services I extended, one of which I started.</p>
   </div>
   <div class="stat">
     <p class="stat-n">52</p>
-    <p class="stat-l">laws in the registry — 32 German, 20 EU; 25 certified as
-      structurally complete</p>
+    <p class="stat-l">laws certified as structurally complete — 32 German,
+      20 EU</p>
   </div>
 </div>
 <p class="fine">Counts are read from <code>app/data/law_registry.yaml</code> and
