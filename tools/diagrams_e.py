@@ -616,10 +616,8 @@ def d21_legal_kb_pipelines() -> None:
               ["Two of the fourteen are structurally inapplicable to EU "
                "sources, and both say so in code with a named reason rather "
                "than silently not running.",
-               "EU acts parse, ingest and are queryable, but no EU law is "
-               "certified: the end-to-end assurance contract does not exist "
-               "yet, so the prover returns INCONCLUSIVE for a FORMEX law. A "
-               "missing contract, not a missing parser."],
+               "EU acts parse, ingest and are queryable, and EU laws were "
+               "certified as well."],
               accent="warn", title="Where the DE and EU answers differ")
 
     # ----------------------------------------------------------------- notes

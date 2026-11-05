@@ -69,7 +69,7 @@ STORIES = {
     "radiology": ("One global cut-off would be wrong for every finding.",
                   "Each finding gets its own threshold and an attribution map.",
                   ["X-ray", "Model", "Thresholds", "Grad-CAM++"],
-                  ("5", "findings. Research prototype only, not a medical device"),
+                  ("5", "findings handed over, work extended to 14. Client prototype, not a medical device"),
                   [("Cardiomegaly threshold", "0.130", 13), ("Effusion threshold", "0.424", 42)],
                   ["PyTorch", "DenseNet-121", "Grad-CAM++", "Kafka"]),
     "compliance": ("A wrong citation makes a compliance report confidently wrong.",
@@ -309,9 +309,11 @@ knows insurance but not Python, and carried between models without retraining.</
 
     section("radiology", "Medical imaging", f"""
 <h2>Multi-label chest X-ray classification</h2>
-<p class="lede">A research/prototype medical-imaging classification pipeline —
-internally named &ldquo;AI Radiologist&rdquo;. Five findings, one calibrated
-decision threshold each, and a Grad-CAM++ attribution map.</p>
+<p class="lede">A medical-imaging prototype built for a client — internally named
+&ldquo;AI Radiologist&rdquo;. DenseNet-121 trained on NIH ChestX-ray14, CheXpert and a
+pneumonia dataset from Kaggle. Five findings were completed and handed over, each
+with one calibrated decision threshold and a Grad-CAM++ attribution map, and the
+work went on to 14.</p>
 <p class="fine"><strong>Scope:</strong> this is a prototype. It is not a medical
 device, it has no regulatory clearance, it was not clinically validated or
 deployed, and it does not assist or replace a clinician. The internal project
@@ -542,9 +544,6 @@ observed.</p>
       <li><strong>Generate the gate list once.</strong> Three hand-maintained
       copies exist downstream; that is recorded as a known defect and it is the
       cause of the doc-versus-code drift found during this audit.</li>
-      <li><strong>Build the FORMEX assurance contract.</strong> EU acts parse,
-      ingest and are queryable, and none can be certified, because the
-      pre-flight detectors are GII-shaped.</li>
       <li><strong>Re-own canonical deletion.</strong> A flag-gated purge path
       still contradicts the single-writer rule. It is recorded as debt rather
       than resolved by weakening the rule.</li>
@@ -1179,7 +1178,7 @@ document.querySelectorAll('.fig-frame').forEach(function (frame) {{
     'contributions': 'What I built, what I extended, and what I did not.',
     'challenges': 'Pick one problem and go deep. The gate defect is the best '
                 + 'one.',
-    'radiology': 'Prototype, not a device. Five findings, five thresholds, '
+    'radiology': 'Client prototype, not a device. Five findings handed over, then 14. '
                + 'then the prior you switched off.',
     'compliance': 'This is what the corpus is for. Be clear the product is '
                 + 'not your code.',

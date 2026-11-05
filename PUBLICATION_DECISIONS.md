@@ -75,8 +75,6 @@ GDPR, the EU AI Act, CRA, CER and eIDAS.
 - The selection is a product decision. It reveals the compliance scope
   BP-ITCS's platform targets, which is commercially meaningful information a
   competitor could use to infer the product's positioning.
-- The certification split (25 German complete, 0 EU certified) reveals where the
-  product is weaker. That is honest and it is also a competitive detail.
 - It is the closest thing in this package to business information rather than
   engineering information.
 
@@ -99,7 +97,7 @@ Concretely:
 | Keep | Drop or generalise |
 |---|---|
 | Named laws where they carry an engineering point — BGB and ZPO in the gate-defect story, DDG in the registry-provenance story, the EU AI Act as a FORMEX example | The full enumeration of all 52 registry entries |
-| The aggregate figures: 52 registered, 32 German / 20 EU, 25 certified `COMPLETE`, 0 EU certified | A law-by-law certification table in any public artefact |
+| The aggregate figures: 52 registered, 32 German / 20 EU, 25 German certified `COMPLETE`, EU laws certified as well | A law-by-law certification table in any public artefact |
 | "German and EU compliance-relevant legislation" as the scope description | Anything that reads as a product roadmap |
 
 The current package already complies: no public artefact contains a law-by-law

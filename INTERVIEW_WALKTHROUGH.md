@@ -50,8 +50,7 @@ for the 5-minute version, `02-legal-knowledge-database.svg` if they want depth.
 > Fourteen gates measure what is stored against what the publisher served. Seven
 > are required for the aggregate badge; all fourteen are recorded and displayed,
 > because a measurement nobody can see is not a measurement. Twenty-five German
-> laws are certified structurally complete. No EU law is, and I can tell you
-> exactly why.
+> laws are certified structurally complete, and EU laws were certified as well.
 
 ---
 
@@ -158,18 +157,6 @@ reproduces, which is the only thing the mechanism is for.
 
 The registry is part of that rule set too, and a code comment records why: adding
 one long form moved eight citations in the AktG work.
-
-### Why no EU law is certified
-
-EU acts parse, ingest and are queryable. FORMEX gate implementations exist for
-served text, substructure, citation completeness and reference extraction. What
-does not exist is the end-to-end certification contract: the pre-flight detectors
-are GII-shaped, so the prover stops at the capture digest and returns
-`INCONCLUSIVE` for a FORMEX law.
-
-That is a missing assurance contract, not a missing parser, and the distinction
-is worth making precisely — because "we support EU law" and "we can prove our EU
-extraction" are different claims.
 
 ### The endpoint that documented a measurement no code performed
 
@@ -386,7 +373,7 @@ store.
 
 ### What would you redesign today?
 
-Six things, and I would lead with the first:
+Five things, and I would lead with the first:
 
 1. **Add a dead-letter path to the legal pipeline.** Today one unprocessable law
    blocks a partition indefinitely. The document pipeline already has a DLQ; the
@@ -400,9 +387,7 @@ Six things, and I would lead with the first:
    drift I found while auditing my own repositories for this portfolio.
 4. **Content-address the captures.** Immutable by key is weaker than immutable by
    policy, and it permits both duplicate captures and orphaned objects.
-5. **Build the FORMEX assurance contract**, so EU acts can be certified rather
-   than merely ingested.
-6. **Re-own canonical deletion.** A flag-gated purge path in the loader still
+5. **Re-own canonical deletion.** A flag-gated purge path in the loader still
    contradicts the single-writer rule. It is recorded as debt, deliberately, and
    it should be resolved by moving the responsibility rather than by softening
    the rule.
@@ -437,6 +422,6 @@ re-derivable from the publisher's own bytes under a recorded rule set.
   structural verification and lifecycle control. Leading with RAG invites the
   assumption that the hard part was prompt engineering.
 - **"We verify everything."** Seven of fourteen gates are required for the
-  badge; no EU law is certified; no law is human-certified; and a count matching
+  badge; no law is human-certified; and a count matching
   is not proof. Each of those caveats makes the claim stronger, not weaker,
   because it shows the limits were measured rather than assumed.

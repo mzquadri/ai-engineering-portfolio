@@ -103,11 +103,11 @@ DECK: list[tuple[str, str, str | None, list[str]]] = [
       "replacement-character detection"]),
 
     ("Is there computer vision too?",
-     "Chest X-ray classification \u2014 a research prototype",
+     "Chest X-ray classification \u2014 a client prototype",
      "18-ai-radiologist",
      ["Internal project name \u201cAI Radiologist\u201d \u2014 not a medical device, not clinically deployed",
-      "DenseNet-121 over five findings, sigmoid per class \u2014 a study can "
-      "show several at once",
+      "DenseNet-121 on NIH, CheXpert and pneumonia data \u2014 five findings "
+      "handed over, work extended to 14",
       "One calibrated threshold per finding (Youden's J), plus ICD-10 and an "
       "urgency band",
       "Grad-CAM++ attribution, with anatomical priors built and then "

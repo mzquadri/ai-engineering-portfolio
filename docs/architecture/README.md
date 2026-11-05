@@ -130,8 +130,6 @@ evidence of weight, not of line ownership.
 - **The legal pipeline has no dead-letter topic**, no bounded retry and no
   automatic repair. That is a deliberate position for a legal corpus and a real
   gap; both are stated in the diagrams.
-- **No EU law is certified.** EU acts parse, ingest and are queryable, but the
-  pre-flight detectors are GII-shaped so the prover returns `INCONCLUSIVE`.
 - **Credentials, internal hostnames and endpoints appear nowhere** in this
   package. See the redaction review linked below.
 

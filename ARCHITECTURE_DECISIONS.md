@@ -189,9 +189,8 @@ maintained, and they will occasionally disagree for reasons that are not defects
 consistency. Rejected because it cannot detect a systematic misreading — which is
 exactly the failure the structural gates found.
 
-**Current limitation.** The oracle is GII-shaped. FORMEX oracle tools exist, but
-the end-to-end certification contract does not, which is why no EU law is
-certified.
+**Current limitation.** The oracle is GII-shaped. FORMEX oracle tools exist for
+EU law.
 
 ---
 
