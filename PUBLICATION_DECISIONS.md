@@ -87,7 +87,7 @@ GDPR, the EU AI Act, CRA, CER and eIDAS.
   vague; "BGB carries three evidence documents where ZPO carries one, which is
   what exposed a gate defect" is a real engineering story that requires naming
   the laws.
-- The corpus scale (52 registered, 25 certified) is the only honest quantitative
+- The corpus scale (52 registered, 52 certified) is the only honest quantitative
   claim in the portfolio. Removing it leaves no measurable statement at all.
 
 **Recommendation: keep the engineering examples; drop the exhaustive list.**
@@ -97,7 +97,7 @@ Concretely:
 | Keep | Drop or generalise |
 |---|---|
 | Named laws where they carry an engineering point — BGB and ZPO in the gate-defect story, DDG in the registry-provenance story, the EU AI Act as a FORMEX example | The full enumeration of all 52 registry entries |
-| The aggregate figures: 52 registered, 32 German / 20 EU, 25 German certified `COMPLETE`, EU laws certified as well | A law-by-law certification table in any public artefact |
+| The aggregate figures: 52 registered, 32 German / 20 EU, 52 certified `COMPLETE` | A law-by-law certification table in any public artefact |
 | "German and EU compliance-relevant legislation" as the scope description | Anything that reads as a product roadmap |
 
 The current package already complies: no public artefact contains a law-by-law

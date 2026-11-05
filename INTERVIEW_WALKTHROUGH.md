@@ -49,8 +49,8 @@ for the 5-minute version, `02-legal-knowledge-database.svg` if they want depth.
 >
 > Fourteen gates measure what is stored against what the publisher served. Seven
 > are required for the aggregate badge; all fourteen are recorded and displayed,
-> because a measurement nobody can see is not a measurement. Twenty-five German
-> laws are certified structurally complete, and EU laws were certified as well.
+> because a measurement nobody can see is not a measurement. Fifty-two laws are
+> certified structurally complete: 32 German and 20 EU.
 
 ---
 
@@ -409,7 +409,7 @@ is where it actually ran.
 ### Do you have business impact numbers?
 
 No. No repository contains a metric of that kind, and I am not going to
-manufacture one. What I can quantify is the engineering: twenty-five laws
+manufacture one. What I can quantify is the engineering: fifty-two laws
 certified structurally complete against their own publisher sources, fourteen
 gates, four stores with one writer each, and a corpus where every stored item is
 re-derivable from the publisher's own bytes under a recorded rule set.

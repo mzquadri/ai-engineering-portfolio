@@ -139,13 +139,10 @@ in code with a named reason — `not_applicable_to_source_family` and
 | | |
 |---|---|
 | Registry | **52** laws — 32 `gii_norm`, 20 `formex_v4` |
-| `ingestion_order` | 44 laws, each exactly once |
-| `ingestible: false` | 9 entries, retained for citation resolution only |
-| Certified `COMPLETE` | **25** German, plus EU laws |
+| Certified `COMPLETE` | **52** — 32 German, 20 EU |
 | `HUMAN_STRUCTURALLY_CERTIFIED` | **0** |
 
-Read from `app/data/law_registry.yaml` and
-`audit/reports/corpus-certification-ledger.md` on 2026-09-12. The service README
+Registry counts read from `app/data/law_registry.yaml` on 2026-09-12. The service README
 states 31 German and 51 total; `DDG` was added on 2026-09-03 and the README has
 not caught up.
 
